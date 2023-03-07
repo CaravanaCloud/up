@@ -1,0 +1,49 @@
+{
+  "name": "up-cli",
+  "version": "1.0.0",
+  "description": "Unified Pluggable CLI",
+  "main": "index.js",
+  "scripts": {
+    "build": "jsii",
+    "build:watch": "jsii --watch",
+    "package": "jsii-pacmak",
+    "hello": "echo hello"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaravanaCloud/up-cli.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Caravana Cloud",
+    "email": "help@caravana.cloud"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/CaravanaCloud/up-cli/issues"
+  },
+  "homepage": "https://github.com/CaravanaCloud/up-cli#readme",
+  "stability": "experimental",
+  "types": "index.ts",
+  "jsii": {
+    "outdir": "dist",
+    "versionFormat": "short",
+    "targets": {
+      "java": {
+        "package": "upcli",
+        "maven": {
+          "groupId": "caravanacloud",
+          "artifactId": "upcli"
+        }
+      },
+      "python": {
+        "distName": "upcli",
+        "module": "upcli"
+      }
+    }
+  },
+  "devDependencies": {
+    "jsii": "^1.77.0",
+    "jsii-pacmak": "^1.77.0"
+  }
+}
