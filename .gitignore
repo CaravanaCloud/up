@@ -6,3 +6,7 @@ tsconfig.*
 
 *.js
 *.d.ts
+
+dist
+
+target

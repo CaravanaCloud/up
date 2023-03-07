@@ -9,7 +9,7 @@ export class Greeter {
         this.greetee = props.greetee;
     }
 
-    public greetZimblimblim(): string {
+    public greet(): string {
         return `Hello, ${this.greetee}!`
     }
 }

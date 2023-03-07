@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "up-cli-py"
+version = "0.1.0"
+description = ""
+authors = ["Julio Faerman <jufaerma@redhat.com>"]
+readme = "README.md"
+packages = [{include = "up_cli_py"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pendulum = "^2.1.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
