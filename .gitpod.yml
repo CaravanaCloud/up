@@ -1,6 +1,7 @@
 tasks:
   - name: Build project
     init: |
+      npm
       npm run build
     command: |
       npm run build:watch
