@@ -1,7 +1,13 @@
+image:
+  file: .gitpod.Dockerfile
+
 tasks:
   - name: Build project
     init: |
-      npm install
-      npm run build
+      echo "init at $(date)
     command: |
-      npm run build:watch
+      echo "command at $(date)
+
+vscode:
+  extensions:
+    - nadako.vshaxe
