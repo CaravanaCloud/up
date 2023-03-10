@@ -1,3 +1,4 @@
+# docker build --no-cache --pull -f .gitpod.Dockerfile .
 FROM gitpod/workspace-full
 
 ARG JAVA_VERSION=22.3.r19-grl

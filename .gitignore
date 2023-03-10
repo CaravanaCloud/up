@@ -1,12 +1,40 @@
-node_modules
+#Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+.flattened-pom.xml
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# IntelliJ
 .idea
-yarn.lock
-.jsii
-tsconfig.*
+*.ipr
+*.iml
+*.iws
 
-*.js
-*.d.ts
+# NetBeans
+nb-configuration.xml
 
-dist
+# Visual Studio Code
+.vscode
+.factorypath
 
-target
+# OSX
+.DS_Store
+
+# Vim
+*.swp
+*.swo
+
+# patch
+*.orig
+*.rej
+
+# Local environment
+.env

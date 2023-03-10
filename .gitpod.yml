@@ -4,6 +4,7 @@ image:
 tasks:
   - name: Build project
     init: |
+
       echo "init at $(date)
     command: |
       echo "command at $(date)
