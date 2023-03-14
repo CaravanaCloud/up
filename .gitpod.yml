@@ -11,4 +11,5 @@ tasks:
 
 vscode:
   extensions:
-    - nadako.vshaxe
+    - redhat.java
+
