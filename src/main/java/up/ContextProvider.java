@@ -1,4 +1,4 @@
-package caravanacloud;
+package up;
 
 import org.graalvm.polyglot.Context;
 

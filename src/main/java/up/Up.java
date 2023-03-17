@@ -1,12 +1,11 @@
-package caravanacloud;
+package up;
 
+import io.quarkus.runtime.QuarkusApplication;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Parameters;
 
 import javax.inject.Inject;
 import java.io.BufferedReader;
@@ -14,25 +13,28 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-@Command(name = "main", mixinStandardHelpOptions = true)
-public class MainCommand implements Runnable {
+public class Up implements QuarkusApplication {
     @Inject
     Context context;
 
-    Logger log = LoggerFactory.getLogger(MainCommand.class);
+    Logger log = LoggerFactory.getLogger(Up.class);
 
-    @Parameters(index = "0")
-    String subject;
 
     @Override
-    public void run() {
+    public int run(String... args){
         System.out.println("Up!");
+        if (args.length < 1){
+            System.out.println("try $ up <subject> <action> <object> <profile>");
+            return 1;
+        }
+        var subject = args[0];
         log.info("^ {}", subject);
         try {
-            execute(subject);            
+            execute(subject);
         }catch (Exception ex){
             System.out.println("Failed to run script: " + ex.getMessage());
         }
+        return 0;
     }
 
     private void tryExecute(String dir, String fileName) throws IOException{
