@@ -11,6 +11,9 @@ release.properties
 .classpath
 .settings/
 bin/
+target/
+dist/
+
 
 # IntelliJ
 .idea

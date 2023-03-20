@@ -2,6 +2,8 @@ package up;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
+import up.doclet.Doclet;
+import up.parser.Parser;
 
 import javax.inject.Inject;
 import java.util.List;

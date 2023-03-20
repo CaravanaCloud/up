@@ -16,19 +16,21 @@ import java.io.InputStreamReader;
 public class Up implements QuarkusApplication {
     @Inject
     Context context;
-
-    Logger log = LoggerFactory.getLogger(Up.class);
-
+    @Inject
+    Logger log;
 
     @Override
     public int run(String... args){
-        System.out.println("Up!");
+        log.info("Starting up cli, thank you for running <3");
         if (args.length < 1){
-            System.out.println("try $ up <subject> <action> <object> <profile>");
+            log.warn("No action provided");
+            log.info("Usage:");
+            log.info("$ up <script.sh | .py | .js>");
+            log.info("$ up <subject> [action] <object> <profile>");
             return 1;
         }
+        log.info("Args: {}", args);
         var subject = args[0];
-        log.info("^ {}", subject);
         try {
             execute(subject);
         }catch (Exception ex){
@@ -60,7 +62,7 @@ public class Up implements QuarkusApplication {
     }
     private void execute(File file) throws IOException {
         var lang = Source.findLanguage(file);
-        log.info("Found language {} for script {}", lang, file.getName());
+        log.debug("Found language {} for script {}", lang, file.getName());
         if (lang == null){
             if (file.getName().endsWith(".sh")){
                 execShell(file.getAbsolutePath());

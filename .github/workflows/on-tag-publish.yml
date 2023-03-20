@@ -1,0 +1,12 @@
+name: Publish Binaries on Release
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ./publish.sh
+      - run: find .
