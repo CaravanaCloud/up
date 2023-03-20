@@ -7,6 +7,12 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '19'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v2
       - run: ./package.sh
       - run: find .
