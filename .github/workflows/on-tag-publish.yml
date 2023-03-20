@@ -1,4 +1,4 @@
-name: Publish Binaries on Release
+name: on tag, publish packages
 on:
   push:
     tags:
@@ -8,5 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ./publish.sh
+      - run: ./package.sh
       - run: find .
