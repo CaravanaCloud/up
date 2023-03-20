@@ -5,9 +5,11 @@ echo "Cleaning up..."
 rm -rf dist
 
 echo "Building package"
-./mvnw --no-transfer-progress \
-  --batch-mode\
-  --fail-never \ #TODO: Remove -fn when tests are clear
+#TODO: Remove -fn when tests are clear
+./mvnw \
+  --no-transfer-progress \
+  --batch-mode \
+  --fail-never \
   clean package
 
 echo "Building app-image"
