@@ -1,11 +1,14 @@
 #!/bin/bash
-set -x
+set -ex
 
 echo "Cleaning up..."
 rm -rf dist
 
 echo "Building package"
-./mvnw clean package
+./mvnw --no-transfer-progress \
+  --batch-mode\
+  --never-fail \ #TODO: Remove -nf when tests are clear
+  clean package
 
 echo "Building app-image"
 jpackage --verbose \
