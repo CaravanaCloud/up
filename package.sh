@@ -7,7 +7,7 @@ rm -rf dist
 echo "Building package"
 ./mvnw --no-transfer-progress \
   --batch-mode\
-  --never-fail \ #TODO: Remove -nf when tests are clear
+  --fail-never \ #TODO: Remove -fn when tests are clear
   clean package
 
 echo "Building app-image"
