@@ -2,6 +2,11 @@ package up.parser;
 
 import up.doclet.Doclet;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -51,5 +56,16 @@ public class Parser {
             }
         }
         return false;
+    }
+
+    public static String fileToString(File file) throws IOException {
+        Path filePath = file.toPath();
+        byte[] fileBytes = Files.readAllBytes(filePath);
+        return new String(fileBytes, StandardCharsets.UTF_8);
+    }
+    public List<Doclet> parse(File file) throws IOException {
+        var content = Parser.fileToString(file);
+        var result = parse(content);
+        return result;
     }
 }
