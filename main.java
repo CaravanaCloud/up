@@ -8,7 +8,7 @@ import io.quarkus.runtime.annotations.QuarkusMain;
 import up.Up;
 
 @QuarkusMain
-public class Main {
+public class main {
     public static void main(String[] args) {
         Quarkus.run(Up.class, args);
     }
