@@ -6,7 +6,10 @@ public class Up implements QuarkusApplication {
     
     @Override
     public int run(String... args){
+
         System.out.println("Starting up cli, thank you for running <3");
+        return 0;
+    
     }
 
 }

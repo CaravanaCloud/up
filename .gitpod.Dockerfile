@@ -7,6 +7,7 @@ RUN bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh \
     && sdk install java ${JAVA_VERSION} \
     && sdk default java ${JAVA_VERSION} \
     && sdk install quarkus \
+    && sdk install jbang \
     && gu install python \
     && gu install js"
 RUN bash -c "sudo install-packages cowsay fortune"
