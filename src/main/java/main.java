@@ -2,7 +2,7 @@
 //DEPS io.quarkus.platform:quarkus-bom:2.16.6.Final@pom
 //DEPS io.quarkus:quarkus-arc:2.16.6.Final
 //DEPS io.quarkus:quarkus-picocli:2.16.6.Final
-//SOURCES **/*.java
+//SOURCES up/Up.java
 
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
