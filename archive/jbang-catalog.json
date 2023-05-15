@@ -1,0 +1,8 @@
+{
+  "aliases": {
+    "main": {
+      "script-ref": "src/main/java/main.java",
+      "description": "Main alias for UP CLI"
+    }
+  }
+}
