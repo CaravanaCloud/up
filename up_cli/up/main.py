@@ -1,7 +1,7 @@
 import click
 
 from up_lib.up_lib import hello_world_from_init
-from up_lib.up_lib.up_lib import hello_world_from_lib
+from up_lib.up_lib import hello_world_from_lib
 
 
 @click.command(name="up")
