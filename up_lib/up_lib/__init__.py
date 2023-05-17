@@ -1,6 +1,6 @@
 from .up_lib import hello_world_from_lib
 
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 
 def hello_world_from_init():
