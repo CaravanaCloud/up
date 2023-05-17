@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "up"
 version = "0.1.0"
-description = ""
+description = "up cli"
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 packages = [
     { include = "up"},
@@ -9,8 +9,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.11"
-click = "^8.1.3"
+python = "^3.10"
 up_lib = {path = "../up_lib"}
 
 [tool.poetry.dev-dependencies]
@@ -21,4 +20,4 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-up = 'up.main:main'
+up = 'up.cli:cli'
