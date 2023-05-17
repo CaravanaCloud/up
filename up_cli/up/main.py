@@ -1,14 +1,14 @@
 import click
 
-@click.command()
-@click.option('--count', default=1, help='Number of greetings.')
-@click.option('--name', prompt='Your name',
-              help='The person to greet.')
+from up_lib.up_lib import hello_world_from_init
+from up_lib.up_lib.up_lib import hello_world_from_lib
 
-def main(count, name):
-    """Simple program that greets NAME for a total of COUNT times."""
-    for x in range(count):
-        click.echo(f"Hello {name}!")
+
+@click.command(name="up")
+def main():
+    click.echo(hello_world_from_init())
+    click.echo(hello_world_from_lib())
+
 
 if __name__ == '__main__':
     main()

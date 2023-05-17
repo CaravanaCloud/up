@@ -1,16 +1,13 @@
 [tool.poetry]
-name = "up"
+name = "up_ansible"
 version = "0.1.0"
 description = ""
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
-packages = [
-    { include = "up" },
-]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-click = "^8.1.3"
-up_lib = {path = "../up_lib"}
+ansible = "^7.5.0"
+up-lib = {path = "../up_lib"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
@@ -18,6 +15,3 @@ pytest = "^6.2"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-up = 'up.main:main'
