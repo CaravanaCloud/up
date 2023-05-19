@@ -1,4 +1,7 @@
+import logging as log
 
-def hello_world_from_lib():
-    return "hello world from library internal"
+def up(prompt):
+    log.debug(f"up {prompt}")
+
+
 
