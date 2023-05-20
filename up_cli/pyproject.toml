@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "up"
-version = "0.1.0"
+version = "0.1.333"
 description = "up cli"
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 packages = [

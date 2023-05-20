@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "up_ansible"
-version = "0.1.0"
+version = "0.1.333"
 description = ""
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 
