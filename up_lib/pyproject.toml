@@ -4,7 +4,7 @@ version = "0.1.4"
 description = ""
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 packages = [
-    { include = "up_lib" }
+    { include = "up_lib", from="./src" }
 ]
 
 [tool.poetry.dependencies]
