@@ -1,4 +1,4 @@
-from .up_lib import up
+from .main import up
 
 __version__ = '0.1.4'
 
