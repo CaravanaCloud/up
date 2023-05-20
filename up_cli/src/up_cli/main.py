@@ -1,27 +1,27 @@
 import sys
 import logging as log
-from up_lib import up
+from up_lib import up, Errors
 
 
 def print_help():
     log.debug("Please please help me")
 
 
-def exit_cli(param):
+def exit_cli(error):
     code = 0
-    if param:
-        log.error(param)
-        code = 1
+    if error:
+        (code, msg) = error.value
+        log.error(msg)
     sys.exit(code)
 
 
 def main():
+    log.basicConfig(level=log.DEBUG)
     args = sys.argv
     len_args = len(args)
-    if len_args < 1:
+    if len_args <= 1:
         print_help()
-        exit_cli("NO_COMMAND_SPECIFIED")
-    log.basicConfig(level=log.DEBUG)
+        exit_cli(Errors.NO_COMMAND)
     executable = args[0]
     prompt = args[1:]
     log.debug(f"executable: {executable}")
