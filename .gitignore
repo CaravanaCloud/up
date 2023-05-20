@@ -44,3 +44,5 @@ nb-configuration.xml
 
 # Python
 __pycache__
+
+poetry.lock
