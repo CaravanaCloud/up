@@ -1,7 +1,6 @@
 import sys
 import logging as log
-from up_lib import up
-
+import up_lib
 
 def print_help():
     log.debug("Please please help me")
@@ -26,7 +25,7 @@ def main():
     prompt = args[1:]
     log.debug(f"executable: {executable}")
     log.debug(f"prompt: {prompt}")
-    up(prompt)
+    up_lib.up(prompt)
 
 
 if __name__ == '__main__':

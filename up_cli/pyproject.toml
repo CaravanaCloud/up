@@ -4,7 +4,7 @@ version = "0.1.333"
 description = "up cli"
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 packages = [
-    { include = "up"},
+    { include = "up_cli", from="./src/"},
     { include = "up_lib", from="../up_lib/src" },
 ]
 
@@ -20,4 +20,4 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-up = 'up.cli:cli'
+up = 'up_cli.main:main'

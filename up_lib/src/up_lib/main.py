@@ -1,6 +1,8 @@
-import logging as log
+from .log import *
+
 
 
 def up(prompt):
-    print("uala")
-    log.debug(f"up {prompt}")
+
+    debug(f"up {prompt}")
+
