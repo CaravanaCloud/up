@@ -9,7 +9,12 @@ class Command:
     prompt: list
 
 
-def parse(args: list):
+def parse(args):
+    debug(f"Parsing {type(args)} {args}")
+    if type(args) == str:
+        args = args.split(" ")
+    if type(args) != list:
+        args = list(args)
     command = []
     prompt = []
     options = {}
