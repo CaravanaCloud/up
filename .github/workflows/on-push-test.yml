@@ -1,6 +1,8 @@
 name: 0-on-push-test
 
-on: [push]
+on:
+  push: {}
+  workflow_dispatch: {}
 
 jobs:
 
