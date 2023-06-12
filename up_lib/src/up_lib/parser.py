@@ -1,12 +1,5 @@
-from dataclasses import dataclass
 from .log import *
-
-
-@dataclass
-class Command:
-    command: tuple
-    options: dict
-    prompt: list
+from .command import *
 
 
 def parse(args):

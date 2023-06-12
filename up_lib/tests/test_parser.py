@@ -7,5 +7,6 @@ def test_parse_simple_wait():
     # when
     cmd = parse(line)
     # then
-    print(cmd)
-    print("UALA")
+    assert cmd.command == ("wait",)
+    assert tuple(cmd.prompt) == ("aws", "sts", "get-caller-identity",)
+    assert cmd.options["timeout"] == '42'
