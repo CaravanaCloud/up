@@ -30,10 +30,14 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
+        working-directory: up_lib
 
       - name: Install project
         run: poetry install --no-interaction
+        working-directory: up_lib
 
       - name: Run tests
         run: poetry run pytest -s
+        working-directory: up_lib
+
 
