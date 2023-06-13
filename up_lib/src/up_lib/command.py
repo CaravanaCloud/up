@@ -1,6 +1,6 @@
 from typing import Callable
 
-Command = Callable[[list[str]], dict]
+Command = Callable[[dict], dict]
 
 
 command_handlers: dict[tuple, Command] = {}

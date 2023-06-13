@@ -18,14 +18,15 @@ def wait(opts: dict, prompt: list[str]):
         result = handler(command_opts)
         debug("Result of internal command")
         debug(result)
+        return result
     else:
         debug("Running subprocess command %s", command)
         try:
             result = subprocess.run(prompt, text=True, capture_output=True)
-            debug("Result of subprocess command")
-            debug(result)
+            trace("Result of subprocess command")
+            trace(result)
+            return result
         except FileNotFoundError as e:
             debug("Command not found: %s", e)
             return {}
-    debug("done waiting %s", prompt)
-    return {}
+
