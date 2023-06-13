@@ -5,19 +5,19 @@ def test_wait_true():
     # given
     line = "wait: true"
     # when
-    cmd = parse(line)
-    # then
-    assert cmd.command == ("wait",)
-    assert tuple(cmd.prompt) == ("true",)
+    (cmd, opts, prompt) = parse(line)
+    # then assert actual == expected
+    assert cmd == "wait"
+    assert tuple(prompt) == ("true",)
 
 
 def test_parse_simple_wait():
     # given
     line = "wait --timeout=42: aws sts get-caller-identity"
     # when
-    cmd = parse(line)
+    (cmd, opts, prompt) = parse(line)
     # then
-    assert cmd.command == ("wait",)
-    assert tuple(cmd.prompt) == ("aws", "sts", "get-caller-identity",)
-    assert cmd.options["timeout"] == '42'
+    assert cmd == "wait"
+    assert tuple(prompt) == ("aws", "sts", "get-caller-identity",)
+    assert opts["timeout"] == '42'
 

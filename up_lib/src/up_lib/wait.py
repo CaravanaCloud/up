@@ -1,12 +1,12 @@
-from .command import  *
 from .log import *
-import shlex, subprocess
+import subprocess
 
 
-def wait (cmd: Command):
-    debug("waiting %s", cmd.prompt)
-    prompt = cmd.prompt
+_wait = "wait"
+
+
+def wait(opts: dict, prompt: list):
+    debug("waiting %s", prompt)
     subprocess.run(prompt)
-    debug("done waiting %s", cmd.prompt)
-    pass
-
+    debug("done waiting %s", prompt)
+    return {}

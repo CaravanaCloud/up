@@ -1,5 +1,4 @@
 from .log import *
-from .command import *
 import shlex
 
 
@@ -11,7 +10,7 @@ def parse(args):
         args = list(args)
     if len(args) == 1:
         args = shlex.split(args[0])
-    command = []
+    command = ""
     prompt = []
     options = {}
     lhs = True
@@ -28,10 +27,8 @@ def parse(args):
                 value = keys[1] if len(keys) > 1 else True
                 options[key] = value
             else:
-                command.append(arg)
+                command += arg
         else:
             prompt.append(arg)
-
-    cmd = Command(tuple(command), options, prompt)
-    return cmd
+    return command, options, prompt
 
