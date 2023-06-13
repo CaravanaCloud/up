@@ -1,20 +1,19 @@
 from typing import Callable
 
+Command = Callable[[list[str]], dict]
 
-command_handlers: dict[str, Callable[[dict, list], dict]] = {}
+
+command_handlers: dict[tuple, Command] = {}
 
 
-def register_command(command: str, handler: Callable[[dict, list], dict]):
+def register_command(command: tuple, handler: Command):
     command_handlers[command] = handler
 
 
-def unregister_command(command: str):
+def unregister_command(command: tuple):
     command_handlers.pop(command, None)
 
 
-def get_command(command:str) -> Callable[[dict, list], dict]:
-    try:
-        handler = command_handlers.get(command)
-    except KeyError:
-        raise ValueError(f"Command {command} not found")
+def get_command(command:tuple) -> Command:
+    handler = command_handlers.get(command, None)
     return handler
