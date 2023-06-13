@@ -13,7 +13,7 @@ def test_wait_true():
 
 def test_parse_simple_wait():
     # given
-    line = "wait --timeout=42: aws sts get-caller-identity"
+    line = "WAIT --timeout=42: aws sts get-caller-identity"
     # when
     (cmd, opts, prompt) = parse(line)
     # then

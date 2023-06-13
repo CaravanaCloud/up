@@ -30,5 +30,6 @@ def parse(args):
                 command += arg
         else:
             prompt.append(arg)
+    command = command.lower()
     return command, options, prompt
 
