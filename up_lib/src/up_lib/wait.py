@@ -1,3 +1,4 @@
+from .action import *
 from .command import *
 from .log import *
 from .parser import *
@@ -5,6 +6,11 @@ import subprocess
 
 
 _wait = "wait"
+
+# Inspired by Awaitility https://github.com/awaitility/awaitility/wiki/Usage
+# params
+# atMost
+
 
 
 def wait(opts: dict, prompt: list[str]):
@@ -22,9 +28,20 @@ def wait(opts: dict, prompt: list[str]):
     else:
         debug("Running subprocess command %s", command)
         try:
-            result = subprocess.run(prompt, text=True, capture_output=True)
-            trace("Result of subprocess command")
-            trace(result)
+            kwargs = {
+                "args": prompt,
+                "text": True,
+                "capture_output": True
+            }
+            if "atMost" in opts:
+                kwargs["timeout"] = int(opts["atMost"])
+            try:
+                result = subprocess.run(**kwargs)
+                debug("-- Result of subprocess command -- ")
+                debug(result.stdout)
+            except subprocess.TimeoutExpired as e:
+                debug("Timeout expired: %s", e)
+                action_error(ActionError.TIMEOUT_EXCEEDED, e)
             return result
         except FileNotFoundError as e:
             debug("Command not found: %s", e)

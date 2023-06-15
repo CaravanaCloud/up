@@ -2,6 +2,7 @@ import sys
 import logging as log
 import up_lib
 
+
 def print_help():
     log.debug("Please please help me")
 
@@ -15,17 +16,20 @@ def exit_cli(param):
 
 
 def main():
+    log.basicConfig(level=log.DEBUG)
     args = sys.argv
     len_args = len(args)
     if len_args < 1:
         print_help()
         exit_cli("NO_COMMAND_SPECIFIED")
-    log.basicConfig(level=log.DEBUG)
     executable = args[0]
     prompt = args[1:]
     log.debug(f"executable: {executable}")
     log.debug(f"prompt: {prompt}")
-    up_lib.up(prompt)
+    context = {
+        "executable": executable
+    }
+    up_lib.up(context, prompt)
 
 
 if __name__ == '__main__':
