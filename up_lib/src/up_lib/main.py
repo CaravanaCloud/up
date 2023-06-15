@@ -5,7 +5,7 @@ from .loader import load_plugins
 from .action import *
 
 
-def up(context, prompt) -> dict:
+def up(prompt = None, context:dict = {}) -> dict:
     init_logging()
     debug(f"Starting up() for prompt %s", prompt)
     load_plugins()

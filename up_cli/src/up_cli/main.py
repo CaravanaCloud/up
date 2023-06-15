@@ -29,7 +29,8 @@ def main():
     context = {
         "executable": executable
     }
-    up_lib.up(context, prompt)
+    up_lib.up(prompt= prompt,
+              context= context)
 
 
 if __name__ == '__main__':
