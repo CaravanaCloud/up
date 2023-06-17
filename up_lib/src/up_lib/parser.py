@@ -32,6 +32,7 @@ def parse_action(line = None, actions = []):
                 lhs = False
                 token = token[:-1]
             if index == 0:
+                token = token.lower()
                 if token in actions:
                     debug(f"Parsed action {token}")
                     action = token

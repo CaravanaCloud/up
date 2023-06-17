@@ -7,9 +7,8 @@ from .action import *
 import json
 
 def up(line = None, context:dict = {}) -> dict:
-    init_logging()
+    up_initialize()    
     debug(f"Processing line %s", line)
-    load_plugins()
     actions = list_action_names()
     (action, opts, prompt) = parse_action(line = line, actions = actions)
     debug(f"[{len(actions)}] Actions loaded")
@@ -31,3 +30,6 @@ def output_result(result):
     dump = json.dumps(result, indent=2)
     print(dump)
     
+def up_initialize():
+    init_logging()
+    load_plugins()

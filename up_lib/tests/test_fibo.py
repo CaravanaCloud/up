@@ -22,7 +22,7 @@ def test_slow():
 
 
 def test_waiter_simple():
-    result = up(prompt="wait: fibo --x=10", context={})
+    result = up(line="wait: fibo --x=10", context={})
     assert result["y"] == 55
 
 def test_waiter_timeout():
