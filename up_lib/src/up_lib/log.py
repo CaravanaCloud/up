@@ -5,7 +5,7 @@ import sys
 
 def init_logging():
     sys.set_int_max_str_digits(999999)
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 
 def get_logger(name):

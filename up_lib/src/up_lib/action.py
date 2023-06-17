@@ -25,6 +25,10 @@ def get_action(action:str) -> Action:
     return handler
 
 
+def list_action_names():
+    return action_handlers.keys()
+
+
 class ActionError(Enum):
     TIMEOUT_EXCEEDED = {}
 
