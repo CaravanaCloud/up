@@ -1,0 +1,1 @@
+up wait --atMost=1: fibo --x=1000000

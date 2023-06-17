@@ -2,8 +2,9 @@ from .action import *
 from .command import *
 from .log import *
 from .parser import *
+#TODO Separate to split files (wait_external / wait_internal)
 import subprocess
-
+import asyncio
 
 _wait = "wait"
 
@@ -21,7 +22,7 @@ def wait(opts: dict, prompt: list[str]):
     handler = get_command(command)
     if handler is not None:
         debug("Found internal command handler for %s", command)
-        result = handler(command_opts)
+        result = wait_internal(handler, command_opts)
         debug("Result of internal command")
         debug(result)
         return result
@@ -51,3 +52,11 @@ def wait(opts: dict, prompt: list[str]):
             debug("Command not found: %s", e)
             return {}
 
+def wait_internal(handler, options):
+    timeout = None
+    if "atMost" in options:
+        timeout = int(options["atMost"])
+    debug(f"TODO: Internal function timeout: {timeout}")
+    #TODO
+    result = handler(options)
+    return result

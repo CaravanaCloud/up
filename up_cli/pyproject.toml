@@ -10,7 +10,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.11"
-up_lib = {path = "../up_lib"}
+# up_lib = {path = "../up_lib"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
