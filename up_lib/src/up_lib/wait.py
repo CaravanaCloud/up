@@ -42,7 +42,11 @@ def wait(opts: dict, prompt: list[str]):
             except subprocess.TimeoutExpired as e:
                 debug("Timeout expired: %s", e)
                 action_error(ActionError.TIMEOUT_EXCEEDED, e)
-            return result
+            return {
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+                "returncode": result.returncode
+            }
         except FileNotFoundError as e:
             debug("Command not found: %s", e)
             return {}

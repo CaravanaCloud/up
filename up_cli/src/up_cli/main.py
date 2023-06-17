@@ -23,13 +23,13 @@ def main():
         print_help()
         exit_cli("NO_COMMAND_SPECIFIED")
     executable = args[0]
-    prompt = args[1:]
+    line = args[1:]
     log.debug(f"executable: {executable}")
-    log.debug(f"prompt: {prompt}")
+    log.debug(f"line: {line}")
     context = {
         "executable": executable
     }
-    up_lib.up(prompt= prompt,
+    up_lib.up(line= line,
               context= context)
 
 
