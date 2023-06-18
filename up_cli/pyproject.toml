@@ -1,11 +1,10 @@
 [tool.poetry]
 name = "up"
 version = "0.1.333"
-description = "up cli"
+description = "CLI frontend for up-tools"
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 packages = [
-    { include = "up_cli", from="./src/"},
-#    { include = "up_lib", from="../up_lib/src" },
+    { include = "up_cli", from="./src/"}
 ]
 
 [tool.poetry.dependencies]
