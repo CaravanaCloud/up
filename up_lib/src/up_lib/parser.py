@@ -16,13 +16,14 @@ def parse_action(line = None, actions = []):
     if len(line) == 1:
         line = shlex.split(line[0])
     debug(f"Parsing {type(line)} {line} with {len(actions)} actions")
-
+    
     action = ""
     prompt = []
     options = {}
     lhs = True
-    token = line[0].strip()
 
+    if len(line):
+        token = line[0].strip()
     for (index, token) in enumerate(line):
         debug(f"Parsing {index} {token} | lhs {lhs}")
         if not lhs:

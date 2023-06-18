@@ -5,12 +5,12 @@ description = "up cli"
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 packages = [
     { include = "up_cli", from="./src/"},
-    { include = "up_lib", from="../up_lib/src" },
+#    { include = "up_lib", from="../up_lib/src" },
 ]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-# up_lib = {path = "../up_lib"}
+up_lib = {path = "../up_lib"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"

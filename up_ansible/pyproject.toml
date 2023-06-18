@@ -7,7 +7,7 @@ authors = ["Julio Faerman <jufaerma@redhat.com>"]
 [tool.poetry.dependencies]
 python = "^3.11"
 ansible = "^7.5.0"
-up-lib = {path = "../up_lib"}
+# up-lib = {path = "../up_lib"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
