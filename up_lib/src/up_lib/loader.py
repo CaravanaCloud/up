@@ -4,11 +4,12 @@ import pkgutil
 
 
 def load_plugins():
+    module_prefix="up"
     plugins = {
         name: importlib.import_module(name)
         for finder, name, ispkg
         in pkgutil.iter_modules()
-        if name.startswith('up_')
+        if name.startswith(module_prefix)
     }
     for name, module in plugins.items():
         if hasattr(module, "up_init"):
@@ -17,4 +18,3 @@ def load_plugins():
         else:
             debug("Module %s has no up_init, skipping", name)
     debug(f"Discovered {len(plugins)} plugins")
-    debug(plugins)
