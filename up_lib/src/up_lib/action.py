@@ -6,27 +6,31 @@ import sys
 
 Action = Callable[[dict[str, ...], list[str]], dict]
 
-action_handlers: dict[str, Action] = {}
+_action_handlers: dict[str, Action] = {}
 
 
 def register_action(action: str, handler: Action):
-    action_handlers[action] = handler
+    _action_handlers[action] = handler
 
 
 def unregister_action(action: str):
-    action_handlers.pop(action, None)
+    _action_handlers.pop(action, None)
 
 
 def get_action(action:str) -> Action:
     try:
-        handler = action_handlers.get(action)
+        handler = _action_handlers.get(action)
     except KeyError:
         raise ValueError(f"Action {action} not found")
     return handler
 
 
 def list_action_names():
-    return action_handlers.keys()
+    return _action_handlers.keys()
+
+
+def action_handlers():
+    return _action_handlers
 
 
 class ActionError(Enum):

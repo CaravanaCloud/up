@@ -1,1 +1,1 @@
-up wait --atMost=1: fibo --x=1000000
+up wait --atMost=2: fibo --x=1000000

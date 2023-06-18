@@ -14,7 +14,7 @@ _wait = "wait"
 
 
 
-def wait(opts: dict, prompt: list[str]):
+def wait(opts: dict, prompt: list[str]) -> dict:
     debug("waiting %s with %s options", prompt, len(opts))
     if len(prompt) < 1:
         return {}

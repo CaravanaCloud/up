@@ -1,6 +1,5 @@
 from .log import *
 from .parser import parse_action
-from .wait import wait
 from .loader import load_plugins
 from .action import *
 
@@ -31,5 +30,7 @@ def output_result(result):
     print(dump)
     
 def up_initialize():
+    debug("*** Initializing up_cli")
     init_logging()
     load_plugins()
+    debug(f"Registered action handlers {list_action_names()}")
