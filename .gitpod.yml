@@ -13,3 +13,4 @@ vscode:
   extensions:
     - redhat.java
     - ms-azuretools.vscode-docker
+    - ms-python.python

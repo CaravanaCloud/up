@@ -1,7 +1,6 @@
-from .log import *
+from ..log import *
 
 def fib(x: int) -> int:
-    ## TODO: Input reflection
     return up_fibo({"x": x}).get("y", -1)
 
 
