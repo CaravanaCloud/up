@@ -4,10 +4,20 @@ image:
 tasks:
   - name: Build project
     init: |
-
+      ./build.sh
       echo "init at $(date)
     command: |
       echo "command at $(date)
+
+  - name: CLI
+    command: |
+      cd up_cli
+      poetry install
+
+  - name: LIB
+    command: |
+      cd up_cli
+      poetry run up: echo hello
 
 vscode:
   extensions:
