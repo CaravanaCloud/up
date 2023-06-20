@@ -1,7 +1,7 @@
 Unified Pluggable Tools
 ===
 
-The goal of this project is to help software teams share solutions (a.k.a. scripts) reliably, while reducing CLI proliferation.
+The goal of this project is to help software teams share and deliver solutions (a.k.a. scripts) reliably, while reducing CLI proliferation.
 
 Check out our [demos](./demos) and [FAQ](FAQ.md)
 
