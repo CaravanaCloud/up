@@ -1,9 +1,9 @@
 Unified Pluggable Tools
 ===
 
-The goal of this project is to help software teams share and deliver solutions (a.k.a. scripts) reliably, while reducing CLI proliferation.
+The goal of this project is to help software teams share and deliver solutions (a.k.a. scripts) reliably under a single, "white-label" command line tool.
 
-Check out our [demos](./demos) and [FAQ](FAQ.md)
+**Check out our [demos](./demos) and [FAQ](FAQ.md)**
 
 By "unified" we mean consolidating other CLI tools instead of creating a new one. 
 It must be simple for teams to add new commands to the tool, without changing the existing code.
