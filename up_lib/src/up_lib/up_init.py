@@ -1,10 +1,10 @@
-from .action import *
-from .command import *
+from .actions import *
+from .commands import *
 from .log import *
 from .cmd.fibo import up_fibo
-from .action_wait import wait
-from .action_install import install
-from .action_template import template
+from .action.wait import wait
+from .action.install import install
+from .action.template import template
 
 
 def up_init():

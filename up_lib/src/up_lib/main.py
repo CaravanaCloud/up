@@ -1,7 +1,7 @@
 from .log import *
 from .parser import parse_action
 from .loader import load_plugins
-from .action import *
+from .actions import *
 
 import json
 
