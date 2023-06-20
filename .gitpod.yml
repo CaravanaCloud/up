@@ -13,12 +13,12 @@ tasks:
   - name: CLI
     command: |
       cd up_cli
-      poetry install
+      poetry run up wait: echo hello
 
   - name: LIB
     command: |
       cd up_cli
-      poetry run up: echo hello
+      poetry run pytest -s
 
 vscode:
   extensions:
