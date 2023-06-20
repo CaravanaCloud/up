@@ -27,7 +27,9 @@ aws-nuke -c aws-nuke.yaml
 
 All features of this project are loaded using the python plugin architecture. 
 They are built for re-packaging with another names and plugins, as suitable for your organization.
-For example, if you're interested in creating and managing Kubernetes clusters using [OKD](https://okd.io), you can simply link the 'up' executable as 'okd' for example:
+For example, suppose your organization is interested in creating and managing Kubernetes clusters using [OKD](https://okd.io).
+You could simply link or rename the 'up' executable as 'okd'. This would allow the plugin system to load a different set of plugins.
+However, the end result could be very similar:
 ``` bash
 #!/bin/bash
 okd template: install-config.compact-cluster.env.yaml
@@ -45,7 +47,7 @@ They are Python functions that can be invoked from the up command line, ansible 
 The following actions are exposed by the up_lib module:
 
 * vars: checks if environment variables are set or loadable
-* wait: execute a shell command or python function with timeout
+* wait: execute a shell command or python function with timeout and repeats
 * install: install a known package using its preferred method
 * template: process a template using envsubst or jinja2
 
