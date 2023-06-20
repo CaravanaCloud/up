@@ -17,7 +17,7 @@ tasks:
 
   - name: LIB
     command: |
-      cd up_cli
+      cd up_lib
       poetry run pytest -s
 
 vscode:
