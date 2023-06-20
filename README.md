@@ -7,7 +7,7 @@ The goal of this project is to help software teams share and deliver solutions (
 
 By "unified" we mean consolidating other CLI tools instead of creating a new one. 
 It must be simple for teams to add new commands to the tool, without changing the existing code.
-By "pluggable" we mean that we should "plug-in" into developers workflow and tooling, not force them into any structure.
+By "pluggable" we mean that we should "plug-in" into developers workflow and tooling, not force them into any technology.
 
 For example, if you'd like to cleanup an aws account using [aws-nuke](https://github.com/rebuy-de/aws-nuke), it could be implemented as:
 ```
