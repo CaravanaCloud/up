@@ -6,15 +6,18 @@ tasks:
     init: |
       ./build.sh
       echo "init at $(date)
+      gp sync-done build
     command: |
       echo "command at $(date)
 
   - name: CLI
+    init: gp sync-await build
     command: |
       cd up_cli
       poetry install
 
   - name: LIB
+    init: gp sync-await build
     command: |
       cd up_cli
       poetry run up: echo hello

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "up"
-version = "0.1.4"
+version = "0.1.5"
 description = "CLI frontend for up-tools"
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 packages = [
@@ -9,7 +9,9 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.11"
-up_lib = "^0.1"
+# up_lib = "0.1.5"
+up_lib =  {path = "../up_lib"}
+
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
