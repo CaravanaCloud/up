@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "up_lib"
-version = "0.1.333"
+version = "0.1.4"
 description = "Functions library for up-tools (a.k.a. backend)"
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 packages = [

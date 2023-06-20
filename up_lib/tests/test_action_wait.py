@@ -1,4 +1,4 @@
-from up_lib.wait import wait
+from up_lib.action_wait import wait
 from timeit import default_timer as timer
 
 

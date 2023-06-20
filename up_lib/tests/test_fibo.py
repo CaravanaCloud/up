@@ -1,4 +1,4 @@
-from up_lib.fibo import fib
+from up_lib.cmd.fibo import fib
 from up_lib.main import up
 
 def test_zero():
