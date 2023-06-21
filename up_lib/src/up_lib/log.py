@@ -6,12 +6,13 @@ import os
 
 def cfg_logging_level():
     level_name = os.environ.get('UP_LOG_LEVEL', 'info').lower()
-    if level_name == "debug":
-        return logging.DEBUG
-    elif level_name == "info":
-        return logging.INFO
-    else:
-        return logging.INFO
+    match level_name:
+        case "trace": return 5
+        case "debug": return logging.DEBUG
+        case "info": return logging.INFO
+        case "warning": return logging.WARNING
+        case "error": return logging.ERROR
+        case _: return logging.INFO
 
 
 def init_logging():
