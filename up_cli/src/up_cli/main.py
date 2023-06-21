@@ -1,6 +1,7 @@
 import sys
 import logging as log
 import up_lib
+from datetime import datetime
 
 
 def print_help():
@@ -16,8 +17,9 @@ def exit_cli(param):
 
 
 def main():
+    now = datetime.now()
     up_lib.init_logging()
-    log.debug(f"Starting up cli")
+    log.info(f"Starting up cli at {now.isoformat()}")
     args = sys.argv
     len_args = len(args)
     if len_args < 1:
