@@ -1,7 +1,5 @@
 from .main import up
-from .parser import parse_action
 from .up_init import up_init
+from .log import init_logging
 
-__all__ = [up,
-           parse_action,
-           up_init]
+__all__ = [up, init_logging, up_init]

@@ -1,11 +1,23 @@
 import logging
 import inspect
 import sys
+import os
+
+
+def cfg_logging_level():
+    level_name = os.environ.get('UP_LOG_LEVEL', 'info').lower()
+    if level_name == "debug":
+        return logging.DEBUG
+    elif level_name == "info":
+        return logging.INFO
+    else:
+        return logging.INFO
 
 
 def init_logging():
     sys.set_int_max_str_digits(999999)
-    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+    level = cfg_logging_level()
+    logging.basicConfig(stream=sys.stderr, level=level)
 
 
 def get_logger(name):

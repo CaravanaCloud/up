@@ -16,7 +16,8 @@ def exit_cli(param):
 
 
 def main():
-    log.basicConfig(level=log.DEBUG)
+    up_lib.init_logging()
+    log.debug(f"Starting up cli")
     args = sys.argv
     len_args = len(args)
     if len_args < 1:
