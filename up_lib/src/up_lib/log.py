@@ -12,7 +12,7 @@ def cfg_logging_level():
         case "info": return logging.INFO
         case "warning": return logging.WARNING
         case "error": return logging.ERROR
-        case _: return logging.INFO
+        case _: return logging.INFO + 1
 
 
 def init_logging():
