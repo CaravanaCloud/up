@@ -13,8 +13,8 @@ def load_plugins():
     }
     for name, module in plugins.items():
         if hasattr(module, "up_init"):
-            debug("Initializing module %s", name)
+            trace("Initializing module %s", name)
             module.up_init()
         else:
-            debug("Module %s has no up_init, skipping", name)
+            trace("Module %s has no up_init, skipping", name)
     debug(f"Discovered {len(plugins)} plugins")

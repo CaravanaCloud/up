@@ -1,9 +1,13 @@
 from .log import *
+from .actions import *
 import shlex
 
-# TODO: improve parser to take "wait --atMost=5 cowsay hello" as "wait --atMost=5: cowsay hello"
-def parse_action(line = None, actions = []):
-    """Parse a line into an action, options, and prompt.
+def parse_source(source = None, actions = []) -> ActionPlan:
+    plan = []
+    return plan
+
+def parse_action(line = None, actions = []) -> Action:
+    """Parse a single line into an action, options, and prompt.
     This is the general expected format of an up expression:
     ACTION --OPT1=VAL1 --OPT2=VAL2: PROMPT
     for example:
@@ -25,7 +29,7 @@ def parse_action(line = None, actions = []):
     if len(line):
         token = line[0].strip()
     for (index, token) in enumerate(line):
-        debug(f"Parsing {index} {token} | lhs {lhs}")
+        trace(f"Parsing {index} {token} | lhs {lhs}")
         if not lhs:
             prompt.append(token)
         else:
@@ -35,10 +39,10 @@ def parse_action(line = None, actions = []):
             if index == 0:
                 token = token.lower()
                 if token in actions:
-                    debug(f"Parsed action {token}")
+                    trace(f"Parsed action {token}")
                     action = token
                 else:
-                    debug(f"Unknown action {token}")
+                    trace(f"Unknown action {token}")
                     
             if str(token).startswith("--"):
                 option = token[2:]
@@ -47,9 +51,11 @@ def parse_action(line = None, actions = []):
                 value = keys[1] if len(keys) > 1 else True
                 options[key] = value
     action = action.lower()
-    result = (action, options, prompt,)
+    result = Action(action, options, prompt,)
     debug(f"Parser result: {result}")
     return result
+
+
 def parse_command(prompt:list[str]) -> tuple:
     """Parse a command into a command and options.
     Used by internal commands (fibo --x=3)

@@ -25,11 +25,19 @@ def get_logger(name):
     logger = logging.getLogger(name)
     return logger
 
+def error(*args, **kwargs):
+    logger = get_logger(inspect.currentframe().f_back.f_code.co_name)
+    logger.error(*args, **kwargs)
+
 
 def warning(*args, **kwargs):
     logger = get_logger(inspect.currentframe().f_back.f_code.co_name)
     logger.warning(*args, **kwargs)
 
+
+def info(*args, **kwargs):
+    logger = get_logger(inspect.currentframe().f_back.f_code.co_name)
+    logger.info(*args, **kwargs)
 
 
 def debug(*args, **kwargs):

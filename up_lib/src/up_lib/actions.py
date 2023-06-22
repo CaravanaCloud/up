@@ -1,15 +1,31 @@
 from typing import Callable
 from enum import Enum
+from dataclasses import dataclass, astuple
+
 from .log import *
 import sys
 
+ActionOptions = dict[str, ...]
+ActionPrompt = list[str]
+ActionResult = dict
+ActionHandler = Callable[[ActionOptions, ActionPrompt], ActionResult]
 
-Action = Callable[[dict[str, ...], list[str]], dict]
-
-_action_handlers: dict[str, Action] = {}
+_action_handlers: dict[str, ActionHandler] = {}
 
 
-def register_action(action: str, handler: Action):
+@dataclass
+class Action:
+    name: str
+    options: ActionOptions
+    prompt: ActionPrompt
+
+    def as_tuple(self):
+        return astuple(self)
+
+ActionPlan = list[Action]
+
+
+def register_action(action: str, handler: ActionHandler):
     _action_handlers[action] = handler
 
 
@@ -17,7 +33,7 @@ def unregister_action(action: str):
     _action_handlers.pop(action, None)
 
 
-def get_action(action:str) -> Action:
+def get_action(action:str) -> ActionHandler:
     try:
         handler = _action_handlers.get(action)
     except KeyError:
@@ -35,32 +51,18 @@ def action_handlers():
 
 class ActionError(Enum):
     TIMEOUT_EXCEEDED = {}
+    VARS_NOT_FOUND = {}
 
+    @classmethod
+    def throw(action_error, message):
+        raise Exception(message) 
 
-def halt_on_error():
-    # TODO: User defined configuration?
-    return True
-
-
-def error_of(action_error):
-    return 333
-
-
-def halt(action_error):
-    error_code = error_of(action_error)
-    sys.exit(error_code)
 
 
 def print_stack_trace():
     False
 
 
-def action_error(action_error, exception):
-    kwargs = {}
-    if print_stack_trace():
-        kwargs["exc_info"] = exception
-    warning(str(action_error), **kwargs)
-        
-    if halt_on_error():
-        halt(action_error)
-
+def action_ok():
+    debug(f"Action resulted OK")
+    return {}

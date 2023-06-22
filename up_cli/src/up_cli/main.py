@@ -8,11 +8,9 @@ def print_help():
     log.debug("Please please help me")
 
 
-def exit_cli(param):
-    code = 0
-    if param:
-        log.error(param)
-        code = 1
+def exit_cli(code=-1):
+    if code:
+        log.error("Exiting up cli with code %s", code)
     sys.exit(code)
 
 
@@ -32,9 +30,11 @@ def main():
     context = {
         "executable": executable
     }
-    up_lib.up(line= line,
-              context= context)
-
+    try:
+        up_lib.up(line= line,
+                context= context)
+    except Exception as ex:
+        exit_cli(333)
 
 if __name__ == '__main__':
     main()

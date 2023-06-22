@@ -1,7 +1,7 @@
 from up_lib.parser import parse_action
 
 def parse_wait(line):
-    return parse_action(line, ["wait"])
+    return parse_action(line, ["wait"]).as_tuple()
 
 def test_wait_true():
     # given

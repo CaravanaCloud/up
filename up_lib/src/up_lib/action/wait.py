@@ -42,7 +42,7 @@ def wait(opts: dict, prompt: list[str]) -> dict:
                 debug(result.stdout)
             except subprocess.TimeoutExpired as e:
                 debug("Timeout expired: %s", e)
-                action_error(ActionError.TIMEOUT_EXCEEDED, e)
+                raise e
             return {
                 "stdout": result.stdout,
                 "stderr": result.stderr,
