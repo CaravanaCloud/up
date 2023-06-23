@@ -5,7 +5,7 @@ from dataclasses import dataclass, astuple
 from .log import *
 import sys
 
-ActionOptions = dict[str, ...]
+ActionOptions = dict[str, int | str | bool]
 ActionPrompt = list[str]
 ActionResult = dict
 ActionHandler = Callable[[ActionOptions, ActionPrompt], ActionResult]

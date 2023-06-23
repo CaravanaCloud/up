@@ -9,8 +9,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.11"
-# up_lib = "0.1.5"
-up_lib =  {path = "../up_lib"}
+up_lib = "0.1.5"
 
 
 [tool.poetry.dev-dependencies]
