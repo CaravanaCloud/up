@@ -16,3 +16,5 @@ def up_init():
     register_action("vars", vars)
     debug("initializing up_lib commands")
     register_command(("fibo",), up_fibo)
+    debug("initializing up_lib lookups")
+    register_command(("fibo",), up_fibo)

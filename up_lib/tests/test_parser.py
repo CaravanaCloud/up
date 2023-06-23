@@ -6,6 +6,16 @@ def parse(line, action):
 def parse_wait(line):
     return parse_action(line, ["wait"]).as_tuple()
 
+def test_parse_noop():
+    # given
+    line = ""
+    # when
+    (action, opts, prompt) = parse(line, "")
+    # then assert actual == expected
+    assert action == ""
+    assert len(prompt) == 0
+    assert len(opts) == 0
+
 def test_wait_true():
     # given
     line = "wait: true"
@@ -46,7 +56,7 @@ def test_parse_vars_one_arg():
     assert tuple(prompt) == ("USER",)
     assert len(opts) == 0
 
-def test_parse_vars_one_arg():
+def test_parse_vars_two_arg():
     # given
     line = "VARS USER HOME"
     # when

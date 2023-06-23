@@ -1,5 +1,6 @@
 from ..log import *
 from ..actions import *
+from ..lookups import *
 import os
 
 def vars(opts: dict, prompt: list[str]) -> dict:
