@@ -4,7 +4,7 @@ set -ex
 
 pushd $DIR
 poetry env use 3.11
-poetry cache clear . --all
+poetry cache clear . --all --no-interaction
 
 echo "Checking environment"
 echo "pyenv version \n $(pyenv version)"
@@ -14,12 +14,13 @@ echo "poetry env info \n $(poetry env info)"
 pushd "up_lib"
 echo "Installing up_lib"
 poetry build
-pip install "$DIR/up_lib/dist/"*.whl
+pip install "dist/"*.whl
 popd
 
 pushd "up_cli"
 echo "Installing up_cli"
-poetry install
+poetry build
+pip install "dist/"*.whl
 popd
 
 popd

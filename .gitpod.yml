@@ -4,7 +4,7 @@ image:
 tasks:
   - name: Build project
     init: |
-      ./build.sh
+      ./install.sh
       echo "init at $(date)
       gp sync-done build
     command: |
