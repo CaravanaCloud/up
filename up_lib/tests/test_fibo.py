@@ -17,8 +17,8 @@ def test_twenty():
     assert fib(10) == 55
 
 
-def test_slow():
-    assert fib(333) == 1751455877444438095408940282208383549115781784912085789506677971125378
+def test_million():
+    assert str(fib(1000000))[0:10] == "1953282128" 
 
 
 def test_waiter_simple():

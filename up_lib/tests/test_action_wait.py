@@ -4,7 +4,7 @@ from timeit import default_timer as timer
 
 def test_simple_wait():
     start = timer()
-    wait({}, ["sleep", "2"])
+    wait({}, ["sleep", "3"])
     end = timer()
     elapsed = end - start
     assert elapsed > 2.0
