@@ -45,13 +45,16 @@ def parse_action(line = None, actions = []):
                 parse_action = "append_prompt"
         else:
             action = token.strip().lower()
-            if token in actions:
-                debug(f"Parsed action {token}")
+            if action in actions:
+                info(f"Parsed action {action}")
             else:
-                warning(f"Parsed unknown action {token}")
+                info(f"Unknown action {action}")
+                #TODO: Make the default action configurable
+                action = "wait"
+                prompt.append(token) 
+                debug(f"Using default action {token}")
             parse_action = "set_action"
         debug(f"Parsing lhs={lhs} [{index} {token}] => {parse_action}")
-
     result = Action(action, options, prompt)
     debug(f"Parser result: {result}")
     return result

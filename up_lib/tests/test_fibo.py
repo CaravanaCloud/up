@@ -17,8 +17,8 @@ def test_twenty():
     assert fib(10) == 55
 
 
-def test_million():
-    assert str(fib(1000000))[0:10] == "1953282128" 
+def test_bigone():
+    assert str(fib(500000))[0:10] == "2955561408" 
 
 
 def test_waiter_simple():

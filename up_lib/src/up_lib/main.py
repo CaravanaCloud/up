@@ -10,15 +10,11 @@ def up(line = None, context:dict = {}) -> dict:
     debug(f"up input [%s]:%s", len(line), line[0:20])
     actions = list_action_names()
     debug(f"[{len(actions)}] Action Handlers loaded")
-    #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/
-    # TODO plan = parse_source(source, actions)
-    #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/
     action = parse_action(line = line, actions = actions)
-    if action: # TODO: for action
-        trace(f"Parsed action: %s", str(action))
+    if action:
+        trace(f"Selected action: %s", str(action))
         try:
             return handle_action(action)
-            exit_code = 0
         except Exception as ex:
             error("Action %s failed", str(action))
             warning(ex)
@@ -26,7 +22,7 @@ def up(line = None, context:dict = {}) -> dict:
     else:
         warning(f"No action parsed.")
 
-def handle_action(action:Action)->dict:
+def handle_action(action:Action) -> dict:
     (action_name, opts, prompt) = action.as_tuple()
     handler = get_action(action_name)
     if handler:
