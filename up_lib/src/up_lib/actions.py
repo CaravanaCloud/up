@@ -10,6 +10,7 @@ ActionPrompt = list[str]
 ActionResult = dict
 ActionHandler = Callable[[ActionOptions, ActionPrompt], ActionResult]
 
+# TODO: Consolidate global state in a single class
 _action_handlers: dict[str, ActionHandler] = {}
 
 
@@ -22,7 +23,7 @@ class Action:
     def as_tuple(self):
         return astuple(self)
 
-ActionPlan = list[Action]
+
 
 
 def register_action(action: str, handler: ActionHandler):

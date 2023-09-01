@@ -23,6 +23,9 @@ poetry build
 pip install "dist/"*.whl
 popd
 
+# echo "Linking as rh"
+# sudo ln -sf "$(which up)" "/usr/local/bin/rh" ?
+
 popd
 
 echo done

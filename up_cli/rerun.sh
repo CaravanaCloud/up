@@ -7,4 +7,4 @@ export UP_LOG_LEVEL="debug"
 # poetry run up echo hello world
 # poetry run up template: ../demos/10_template/install-config.sample.env.yaml
 
-poetry run up install aws-nuke
+poetry run up install openshift-install openshift-client
