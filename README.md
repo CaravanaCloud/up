@@ -1,70 +1,33 @@
 # Unified Pluggable Tools
 
+The goal of this project is to enable organizations to build and publish their own unified toolkit, especially regarding CLI tools and solutions. More precisely:
 
-The goal of this project is to help software teams share and deliver solutions (a.k.a. scripts) reliably under a single, "white-label" command line tool.
+* *Unified* means providing a single entry point for the organization tools, in constrast with having customers handle the installation and configuration of several CLI tools.
 
-**Check out our [demos](./demos) and [FAQ](FAQ.md)**
+* *Pluggable* means letting any team in the organization contribute their features to the CLI, including new teams that may already have their own legacy code and binaries.
 
-By "unified" we mean consolidating other CLI tools instead of creating a new one. 
-It must be simple for teams to add new commands to the tool, without changing the existing code.
-By "pluggable" we mean that we should "plug-in" into developers workflow and tooling, not force them into any technology.
+In that sense, as an hypotetical example, a comany called "Red Hat" that publishes binaries such as ```ansible```, ```quarkus```, ```oc```, ```ccmctl```, and so on, would be able to have those binaries executed as ```rh ansible```, ```rh quarkus```, ```rh oc```, and so on. The default executable from this project is named ```up```, organizations can use that or link/alias to any executable name, like as ```rh``` in this example.
 
-For example, if you'd like to cleanup an aws account using [aws-nuke](https://github.com/rebuy-de/aws-nuke), it could be implemented as:
-```
-#!/bin/bash
-up install: aws-nuke
-up template: aws-nuke.envsubst.yaml
-up wait: aws-nuke -c aws-nuke.yaml
-```
+Besides CLI management, such a tool would be a convenient opportunity to deliver complex solutions, such as creating an OKD cluster with specific features and operators installed, or pruning and cloud provider account. The specific operations are performed by the existing tools, such as ```openshift-installer``` or ```aws-nuke```, this projects aim to automate the configuration and verification steps so that solutions can be shared across different environments. 
 
-Or even less intrusively, as doclets, in an existing script:
-``` bash
-#!/bin/bash
-# install: aws-nuke
-# template: aws-nuke.envsubst.yaml
-aws-nuke -c aws-nuke.yaml
-```
+A "cli facade" like that allows for the introduction of several benefits, such as:
+* simplified installation for customers
+* predictable runtime environments
+* delivery of repeable solutions
+* simplified experimentation
 
-All features of this project are loaded using the python plugin architecture. 
-They are built for re-packaging with another names and plugins, as suitable for your organization.
-For example, suppose your organization is interested in creating and managing Kubernetes clusters using [OKD](https://okd.io).
-You could simply link or rename the 'up' executable as 'okd'. This would allow the plugin system to load a different set of plugins.
-However, the end result could be very similar:
-``` bash
-#!/bin/bash
-okd template: install-config.compact-cluster.env.yaml
-okd wait: okd create cluster
-kubectl apply -f myapp.yaml
-```
+This project is at exeperimental stage and all contributions are most welcome.
 
-This design helps teams share solutions as plugins under a common CLI name, without limiting the actual actions it can perform or imposing any other CLI tool.
+# Design Decisions
+
+## Not reinvent the wheel
+
+Do not re-create a package manager, plugin system or packaging model. Let's use containers and existing libraries as much as possible.
 
 
-## Actions (Doclets)
+## Leverage Python and Ansible
 
-Actions are the main work items in up. 
-They are Python functions that can be invoked from the up command line, ansible or other tools.
-The following actions are exposed by the up_lib module:
+Provide a framework so that solutions can be automated with Ansible, and leveraging it's many features in that area. However, offer a stable and predictable environment, execute configuration and validation steps, allowing for testable and repeatable solutions.
 
-* vars: checks if environment variables are set or loadable
-* wait: execute a shell command or python function with timeout and repeats
-* install: install a known package using its preferred method
-* template: process a template using envsubst or jinja2
-
-## Functions
-
-Some actions (like wait:) can execute both shell commands (like $ echo hello) or python functions (like fibo(10)).
-The following functions are exposed by the up_lib module:
-
-* fibo: simple fibonacci calculation for testing
-
-Both actions and functions can be added dynamically as a python module.
-
-## Wanna join?
-Yep, there is a lot TODO :)
-Help is most welcome, get in touch if this sounds like something you could use. 
-We'd be glad to help.
-
-Here's Julio on twitter if you'd like to chat https://twitter.com/faermanj :)
-
+For a better integration with the Ansible ecosystem, this project is mostly written in python, using pluggy as a plugin system.
 
