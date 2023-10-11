@@ -5,7 +5,8 @@ description = ""
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 readme = "README.md"
 packages = [
-    { include = "up_cli", from="./src/"}
+    { include = "up_cli", from="./src/"},
+    { include = "up_splat", from="../up_splat"}
 ]
 
 [tool.poetry.dependencies]
