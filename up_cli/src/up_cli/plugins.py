@@ -13,7 +13,7 @@ def load_plugins(context):
         in pkgutil.iter_modules()
         if name.startswith('up_')
     }
-    log.info("Discovered plugins %s", discovered_plugins)
+    log.info("Discovered %s plugins: %s", len(discovered_plugins), discovered_plugins)
     # create a manager and add the spec
     pm.add_hookspecs(hookspec)
     pm.load_setuptools_entrypoints("up")

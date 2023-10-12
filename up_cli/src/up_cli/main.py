@@ -2,11 +2,9 @@ import sys
 import logging as log
 from datetime import datetime
 
-from up_cli import pm
+from up_cli import pm, containers
 from .plugins import load_plugins
-
-
-# from up_splat import *
+from .containers import *
 
 def print_help():
     log.debug("Please please help me")
@@ -49,15 +47,14 @@ def main():
 def start_container(prompt):
     log.info("Starting container")
     log.info("PROMPT IS" + str(type(prompt)) )
-    results = pm.hook.image_for_prompt(prompt=prompt)
-    log.info(results)
-    if len(results) > 1:
-        log.warn("More than one image returned, using first")
-    image = results[0] if results else None
-    print(results)
-    
-    
-
+    result = pm.hook.image_for_prompt(prompt=prompt)
+    log.info(result)
+    if not result:
+        log.error("No image found for prompt: %s", prompt)
+        exit_cli("NO_IMAGE_FOR_PROMPT")
+    image = result
+    containers.run(ContainerRun(image=image, prompt=prompt))
+    log.info("Container started")
 
 if __name__ == '__main__':
     main()

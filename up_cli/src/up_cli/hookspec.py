@@ -3,7 +3,7 @@ import pluggy
 hookspec = pluggy.HookspecMarker("up")
 
 
-@hookspec
+@hookspec(firstresult=True)
 def image_for_prompt(prompt):
-    """My special little hook that you can customize."""
+    """Present the image in which the prompt will be executed"""
 
