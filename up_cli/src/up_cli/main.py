@@ -36,6 +36,11 @@ def main():
         "executable": executable
     }
     load_plugins(context)
+    prompts = lookup_substituitons_for_prompt(prompt)
+    for prompt in prompts:
+        run_prompt(prompt)
+
+def run_prompt(prompt:list[str]):
     try:
         log.info("UP entrypoint reached")
         start_container(prompt)
@@ -43,16 +48,33 @@ def main():
     except Exception as ex:
         print(ex)
         exit_cli(333)
+        
+def lookup_substituitons_for_prompt(prompt):
+    log.info("Looking up substitutions")
+    # list[list[list[str]]]
+    substs = pm.hook.substitutions_for_prompt(prompt=prompt)
+    if not substs:
+        log.debug("No substitutions found")
+        return [prompt]
+    else:
+        log.debug("*** SUBSTS FOUND *** ")
+        log.debug(substs)
+    result = []
+    for subst in substs:
+        for prompt in substs:
+            result.append(prompt)
+    return result
+
+def default_image():
+    return "fedora:38"
 
 def start_container(prompt):
-    log.info("Starting container")
-    log.info("PROMPT IS" + str(type(prompt)) )
-    result = pm.hook.image_for_prompt(prompt=prompt)
-    log.info(result)
-    if not result:
+    log.info("Starting container for prompt: %s",prompt)
+    image = pm.hook.image_for_prompt(prompt=prompt)
+    log.info(image)
+    if not image:
         log.error("No image found for prompt: %s", prompt)
-        exit_cli("NO_IMAGE_FOR_PROMPT")
-    image = result
+        image = default_image()
     containers.run(ContainerRun(image=image, prompt=prompt))
     log.info("Container started")
 
