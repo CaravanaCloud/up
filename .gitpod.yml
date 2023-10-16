@@ -5,7 +5,7 @@ tasks:
       poetry install
       alias up='poetry run up'
     command: |
-      echo "Ready at $(date)
+      echo "Ready at $(date)"
 
 
 vscode:
