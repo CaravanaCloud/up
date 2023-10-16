@@ -35,8 +35,11 @@ def main():
     context = {
         "executable": executable
     }
+    if not prompt:
+        log.error("No prompts found")
+        exit_cli("NO_PROMPT_FOUND")
     load_plugins(context)
-    prompts = lookup_substituitons_for_prompt(prompt)
+    prompts = lookup_substituitons_for_prompt(prompt)    
     for prompt in prompts:
         run_prompt(prompt)
 

@@ -1,0 +1,14 @@
+tasks:
+  - name: CLI
+    init: |
+      cd ./up_cli
+      poetry install
+      alias up='poetry run up'
+    command: |
+      echo "Ready at $(date)
+
+
+vscode:
+  extensions:
+    - ms-azuretools.vscode-docker
+    - ms-python.python
