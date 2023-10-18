@@ -1,25 +1,19 @@
 import logging as log
-from dataclasses import dataclass
 import docker
 
-@dataclass
-class ContainerRun:
-    """Specify the parameters for a container run"""
-    image: str
-    prompt: list[str]
-
+from up_cli import RunConfig
 
 class DockerContainers:
-    def run(self, run: ContainerRun):
+    def run(self, run: RunConfig):
         log.debug("Running container: %s", run)
         client = docker.from_env()
         image = run.image
         prompt = run.prompt
-        #TODO: Catch errors, print properly
+        #TODO: Catch errors, print properly, pass all params
         result = client.containers.run(
-            image=image, 
-            command=prompt,
-            auto_remove=True)        
+            image=run.image, 
+            command=run.command,
+            auto_remove=run.auto_remove)        
         log.info("container result")
         log.info("%s", result)
         log.debug("Container run done")
@@ -27,5 +21,5 @@ class DockerContainers:
 class Containers:
     delegate = DockerContainers()
     
-    def run(self, run: ContainerRun):
+    def run(self, run: RunConfig):
         self.delegate.run(run)

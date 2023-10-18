@@ -1,14 +1,12 @@
 import pluggy
 
+
 hookspec = pluggy.HookspecMarker("up")
 
+RunConfigs = List[float]
+Prompt = list[str]
 
 @hookspec(firstresult=True)
-def image_for_prompt(prompt: list[str]) -> str:
-    """Present the image in which the prompt will be executed"""
+def to_run_configs(prompt: Prompt) -> RunConfigs:
+    """Present run configurations to execute for prompt"""
 
-@hookspec(firstresult=True)
-def substitutions_for_prompt(prompt: list[str]) -> list[list[str]]:
-    """Present the substitutions for the prompt"""
-    
-# TODO: Variables and Volumes
