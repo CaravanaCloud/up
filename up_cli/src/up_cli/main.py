@@ -47,7 +47,7 @@ def main():
         containers.run(run_config)
 
 def to_run_configs(prompt:list[str]) -> list[RunConfig]:
-    result = pm.hook.to_run_configs(prompt=prompt)
+    result = pm.hook.run_for_prompt(prompt=prompt)
     if not result:
         result = []
     return result    

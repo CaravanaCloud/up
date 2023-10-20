@@ -7,8 +7,6 @@ class DockerContainers:
     def run(self, run: RunConfig):
         log.debug("Running container: %s", run)
         client = docker.from_env()
-        image = run.image
-        prompt = run.prompt
         #TODO: Catch errors, print properly, pass all params
         result = client.containers.run(
             image=run.image, 
