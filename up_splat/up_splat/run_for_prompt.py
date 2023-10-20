@@ -3,7 +3,7 @@ from up_cli import hookimpl, match_prompt, RunConfig
 def mk_run_config(prompt):
     result = RunConfig(
         image="fedora",
-        command=['echo', 'Thank you for trying UP: '] + prompt)
+        command=['echo', 'Thanks for trying UP: '] + prompt)
     return result
 
 @hookimpl

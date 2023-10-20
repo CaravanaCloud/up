@@ -1,5 +1,6 @@
 import pluggy
-from up_cli import Prompt, RunConfigs
+from . import Prompt
+from .containers import RunConfigs
 
 hookspec = pluggy.HookspecMarker("up")
 
