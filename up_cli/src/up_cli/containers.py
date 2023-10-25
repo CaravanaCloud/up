@@ -1,5 +1,6 @@
 import logging as log
 import docker
+import subprocess
 from dataclasses import dataclass, field
 from typing import TypeAlias
 
@@ -23,13 +24,22 @@ class DockerContainers:
         log.debug("Running container: %s", run)
         client = docker.from_env()
         #TODO: Catch errors, print properly, pass all params
-        result = client.containers.run(
-            image=run.image, 
-            command=run.command,
-            auto_remove=run.auto_remove)        
-        log.info("container result")
-        log.info("%s", result)
-        log.debug("Container run done")
+        #TODO: Locate bash properly
+        #TODO: Consider if every command should be auto-wrapped in bash (perhaops detect if contains pipes or redirects)
+        command = ["sh", "-c", subprocess.list2cmdline(run.command)]
+        log.debug("$: %s", run)
+        
+        try:
+            result = client.containers.run(
+                image=run.image, 
+                command= command,
+                auto_remove=run.auto_remove)
+            log.debug("container result: \n %s", result)
+            
+        except Exception as e:
+            log.debug("Failed to run container")
+            log.debug("%s", run)
+            log.error("%s", e)
         
 class Containers:
     delegate = DockerContainers()
