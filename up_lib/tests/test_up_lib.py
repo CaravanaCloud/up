@@ -1,4 +1,4 @@
-from up_ansible import __version__
+from up_lib import __version__
 
 
 def test_version():

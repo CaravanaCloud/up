@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "up"
-version = "0.1.0"
+version = "0.2.1"
 description = ""
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 readme = "README.md"
@@ -12,8 +12,8 @@ packages = [
 python = "^3.12"
 pluggy = "^1.3.0"
 docker = "^6.1.3"
-up_ansible = { path = "../up_ansible", develop = true }
-up_splat = { path = "../up_splat", develop = true }
+up-ansible = "^0.2.1"
+up-splat = "^0.2.1"
 dynaconf = {extras = ["all"], version = "^3.2.3"}
 
 

@@ -1,1 +1,0 @@
-up INSTALL aws-nuke

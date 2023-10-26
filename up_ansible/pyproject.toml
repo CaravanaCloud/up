@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "up_ansible"
-version = "0.1.0"
+name = "up-ansible"
+version = "0.2.1"
 description = ""
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 readme = "README.md"
 
 [project]
-name = "up_ansible"
+name = "up-ansible"
 
 [tool.poetry.dependencies]
 python = "^3.12"

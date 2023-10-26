@@ -12,8 +12,3 @@ from .match import match_prompt
 hookimpl = pluggy.HookimplMarker("up")
 pm = pluggy.PluginManager("up")
 
-
-
-
-
-

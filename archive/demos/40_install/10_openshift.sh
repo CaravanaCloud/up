@@ -1,1 +1,0 @@
-up install openshift-install openshift-client

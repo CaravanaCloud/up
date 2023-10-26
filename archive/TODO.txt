@@ -1,4 +1,0 @@
-- wait queue with multiprocessing https://docs.python.org/3/library/multiprocessing.html
-- envsubst template processor
-- aws-nuke installer
-- load plugin set from executable name (ln -s up rh)
