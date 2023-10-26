@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "up-splat"
-version = "0.2.17"
+version = "0.2.18"
 description = ""
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 readme = "README.md"

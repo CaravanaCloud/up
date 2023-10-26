@@ -1,6 +1,6 @@
 import pluggy
-from . import Prompt
-from .containers import RunConfigs
+from up_lib import Prompt
+from up_lib.containers import RunConfigs
 
 hookspec = pluggy.HookspecMarker("up")
 

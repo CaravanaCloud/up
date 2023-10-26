@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "up-lib"
-version = "0.2.17"
+version = "0.2.18"
 description = ""
 authors = ["Julio Faerman <356476+faermanj@users.noreply.github.com>"]
 
