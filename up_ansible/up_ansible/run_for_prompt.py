@@ -1,4 +1,4 @@
-from up_cli import hookimpl, match_prompt, RunConfig
+from up_lib import hookimpl, match_prompt, RunConfig
 
 def mk_run_config(prompt):
     result = RunConfig(

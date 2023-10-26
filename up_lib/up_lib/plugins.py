@@ -2,7 +2,8 @@ import logging as log
 import importlib
 import pkgutil
 
-from up_cli import pm, hookspec
+from up_lib import pm, hookspec, Context, Prompt
+from .containers import Containers
 
 def load_plugins(context):
     log.info("Loading plugins")

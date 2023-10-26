@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "up-splat"
-version = "0.2.1"
+version = "0.2.17"
 description = ""
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 readme = "README.md"
@@ -19,4 +19,4 @@ build-backend = "poetry.core.masonry.api"
 name = "up-splat"
 
 [project.entry-points.pytest11]
-up = "up.pluginmodule"
+up = "0.2.6"
