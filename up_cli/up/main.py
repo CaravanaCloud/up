@@ -3,7 +3,7 @@ import logging as log
 from datetime import datetime
 import shlex
 
-from up_lib import Context, Prompt, RunConfig
+from up_lib import pm, Context, Prompt, RunConfig
 from up_lib.containers import Containers
 from up_lib.plugins import load_plugins
 
