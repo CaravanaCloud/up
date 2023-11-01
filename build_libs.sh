@@ -3,7 +3,7 @@ set -ex
 
 poetry config virtualenvs.create false
 
-pushd up_lib
+pushd uplib
 poetry build 
 popd
 

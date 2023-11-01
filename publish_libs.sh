@@ -1,7 +1,7 @@
 #!/bin/sh
 set -ex
 
-pushd up_lib
+pushd uplib
 poetry publish --build 
 popd
 

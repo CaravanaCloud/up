@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "up-ansible"
-version = "0.2.18"
+version = "0.2.19"
 description = ""
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
 readme = "README.md"
@@ -10,7 +10,7 @@ name = "up-ansible"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-up-lib = "0.2.18"
+uplib = "^0.2.19"
 
 [build-system]
 requires = ["poetry-core"]

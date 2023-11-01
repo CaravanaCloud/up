@@ -3,9 +3,10 @@ import logging as log
 from datetime import datetime
 import shlex
 
-from up_lib import pm, Context, Prompt, RunConfig
-from up_lib.containers import Containers
-from up_lib.plugins import load_plugins
+from uplib import pm, Context, Prompt
+from uplib.containers import Containers, RunConfig
+from uplib.plugins import load_plugins
+from uplib.match import match_prompt
 
 containers = Containers()
 
@@ -51,7 +52,6 @@ def up(context: Context, prompt: Prompt):
     log.debug(f"prompt: {prompt}")
     load_plugins(context)
     run_configs = run_configs_for_prompt(prompt)
-    log.debug("run_configs: %s", run_configs)
     for run_config in run_configs:
         containers.run(run_config)
 
@@ -68,7 +68,8 @@ def run_configs_from_dynaconf(prompt: list[str]) -> list[RunConfig]:
 
 
 def run_configs_from_plugins(prompt: list[str]) -> list[RunConfig]:
-    result = pm.hook.run_for_prompt(prompt=prompt)
+    results = pm.hook.run_for_prompt(prompt=prompt)
+    result = sum(results, [])
     if not result:
         result = []
     return result
