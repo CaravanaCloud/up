@@ -3,14 +3,16 @@ from . import Prompt
 from typing import Callable
 from .containers import RunConfig
 
+
 def does_match(prompt: Prompt, args) -> bool:
     for p, a in zip(prompt, args):
         if p != a:
             return False
     return True
 
+
 def match_prompt(mk_run_config: Callable[[], RunConfig],
-                 prompt: Prompt, 
+                 prompt: Prompt,
                  *args) -> list[RunConfig]:
     if not prompt:
         return None

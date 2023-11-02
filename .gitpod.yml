@@ -1,12 +1,11 @@
 tasks:
   - name: CLI
     init: |
-      cd ./up_cli
+      cd ./upcli
       poetry install
       alias up='poetry run up'
     command: |
       echo "Ready at $(date)"
-
 
 vscode:
   extensions:

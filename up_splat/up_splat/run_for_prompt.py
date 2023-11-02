@@ -1,15 +1,13 @@
-from uplib import hookimpl
-from uplib.match import match_prompt
-from uplib.containers import RunConfig
+import uplib as up
 
 
 def mk_run_config(prompt):
-    result = RunConfig(
+    result = up.RunConfig(
         image="fedora",
         command=['echo', 'Thanks for trying UP: '] + prompt)
     return result
 
-@hookimpl
+@up.hookimpl
 def run_for_prompt(prompt):
-    return match_prompt(mk_run_config, prompt, "splat")
+    return up.match_prompt(mk_run_config, prompt, "splat")
 

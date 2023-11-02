@@ -15,7 +15,20 @@ files = [
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
+[[package]]
+name = "uplib"
+version = "0.2.19"
+description = ""
+optional = false
+python-versions = "*"
+files = []
+develop = true
+
+[package.source]
+type = "directory"
+url = "../uplib"
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "6a319307f95c5c3591b7a2cb453514f8da6fd05f86d60adf296182cbd3263bf1"
+content-hash = "ebeee5fa45c280967a13e131bf453f136977e7de83d40d24a04ab83d039d87bc"
