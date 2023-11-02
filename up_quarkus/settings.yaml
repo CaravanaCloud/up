@@ -1,4 +1,0 @@
-up:
-  prompt: quarkus
-  container:
-    image: caravanacloud/red-pod
