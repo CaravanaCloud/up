@@ -10,14 +10,15 @@ hookspec = pluggy.HookspecMarker("up")
 hookimpl = pluggy.HookimplMarker("up")
 pm = pluggy.PluginManager("up")
 
-from .match import does_match, match_prompt
-from .containers import RunConfig
+from .match import does_match, if_prompt_matches
+from .containers import ContainerRun, ContainerRuns
 
 __all__ = [Context,
            Prompt,
-           RunConfig,
+           ContainerRun,
+           ContainerRuns,
            hookspec,
            hookimpl,
            pm,
            does_match,
-           match_prompt]
+           if_prompt_matches]

@@ -5,7 +5,7 @@ import pluggy
 
 from . import hookspec
 from .containers import Containers
-from .hookspecs import run_for_prompt
+from .hookspecs import containers_for_prompt
 
 
 def load_plugins(context):

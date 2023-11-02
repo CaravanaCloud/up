@@ -1,8 +1,6 @@
-import pluggy
-from . import Prompt, hookspec
-from .containers import RunConfigs
+from . import hookspec, Prompt, ContainerRuns
 
 
 @hookspec(firstresult=True)
-def run_for_prompt(prompt: Prompt) -> RunConfigs:
+def containers_for_prompt(prompt: Prompt) -> ContainerRuns:
     """Present run configurations to execute for prompt"""

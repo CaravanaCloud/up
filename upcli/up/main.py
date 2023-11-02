@@ -4,9 +4,8 @@ from datetime import datetime
 import shlex
 
 from uplib import pm, Context, Prompt
-from uplib.containers import Containers, RunConfig
+from uplib.containers import Containers, ContainerRun
 from uplib.plugins import load_plugins
-from uplib.match import match_prompt
 
 containers = Containers()
 
@@ -56,19 +55,19 @@ def up(context: Context, prompt: Prompt):
         containers.run(run_config)
 
 
-def run_configs_for_prompt(prompt) -> list[RunConfig]:
+def run_configs_for_prompt(prompt) -> list[ContainerRun]:
     from_plugins = run_configs_from_plugins(prompt)
     from_configs = run_configs_from_dynaconf(prompt)
     result = from_plugins + from_configs
     return result
 
 
-def run_configs_from_dynaconf(prompt: list[str]) -> list[RunConfig]:
+def run_configs_from_dynaconf(prompt: list[str]) -> list[ContainerRun]:
     return []
 
 
-def run_configs_from_plugins(prompt: list[str]) -> list[RunConfig]:
-    results = pm.hook.run_for_prompt(prompt=prompt)
+def run_configs_from_plugins(prompt: list[str]) -> list[ContainerRun]:
+    results = pm.hook.containers_for_prompt(prompt=prompt)
     result = sum(results, [])
     if not result:
         result = []

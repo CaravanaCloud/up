@@ -6,7 +6,7 @@ from typing import TypeAlias
 
 # https://docker-py.readthedocs.io/en/stable/containers.html
 @dataclass
-class RunConfig:
+class ContainerRun:
     name: str = field(kw_only=True, default="")
     image: str = field(kw_only=True, default="")
     command: list[str]  = field(kw_only=True, default_factory=list)
@@ -16,11 +16,11 @@ class RunConfig:
     auto_remove: bool  = field(kw_only=True, default=True)
     network_mode: str  = field(kw_only=True, default="host")
 
-RunConfigs:TypeAlias = list[RunConfig]
+ContainerRuns:TypeAlias = list[ContainerRun]
 
 
 class DockerContainers:
-    def run(self, run: RunConfig):
+    def run(self, run: ContainerRun):
         log.debug("Running container: %s", run)
         client = docker.from_env()
         #TODO: Catch errors, print properly, pass all params
@@ -44,5 +44,5 @@ class DockerContainers:
 class Containers:
     delegate = DockerContainers()
     
-    def run(self, run: RunConfig):
+    def run(self, run: ContainerRun):
         self.delegate.run(run)

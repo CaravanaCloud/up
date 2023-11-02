@@ -1,7 +1,7 @@
 import logging as log
 from . import Prompt
 from typing import Callable
-from .containers import RunConfig
+from .containers import ContainerRun
 
 
 def does_match(prompt: Prompt, args) -> bool:
@@ -11,9 +11,9 @@ def does_match(prompt: Prompt, args) -> bool:
     return True
 
 
-def match_prompt(mk_run_config: Callable[[], RunConfig],
+def if_prompt_matches(mk_run_config: Callable[[], ContainerRun],
                  prompt: Prompt,
-                 *args) -> list[RunConfig]:
+                 *args) -> list[ContainerRun]:
     if not prompt:
         return None
     if does_match(prompt, args):
