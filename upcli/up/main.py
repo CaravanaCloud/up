@@ -50,23 +50,30 @@ def up(context: Context, prompt: Prompt):
         prompt = shlex.split(prompt[0])
     log.debug(f"prompt: {prompt}")
     load_plugins(context)
-    run_configs = run_configs_for_prompt(prompt)
-    for run_config in run_configs:
-        containers.run(run_config)
+    container_runs = containers_for_prompt(prompt)
+    if not container_runs:
+        log.error("No containers found, using defaults")
+        container_runs = [default_container(prompt)]
+    for container in container_runs:
+        containers.run(container)
 
+def default_container(prompt):
+    return ContainerRun(
+        image="fedora",
+        command=prompt)
 
-def run_configs_for_prompt(prompt) -> list[ContainerRun]:
-    from_plugins = run_configs_from_plugins(prompt)
-    from_configs = run_configs_from_dynaconf(prompt)
+def containers_for_prompt(prompt) -> list[ContainerRun]:
+    from_plugins = containers_from_plugins(prompt)
+    from_configs = containers_from_dynaconf(prompt)
     result = from_plugins + from_configs
     return result
 
 
-def run_configs_from_dynaconf(prompt: list[str]) -> list[ContainerRun]:
+def containers_from_dynaconf(prompt: list[str]) -> list[ContainerRun]:
     return []
 
 
-def run_configs_from_plugins(prompt: list[str]) -> list[ContainerRun]:
+def containers_from_plugins(prompt: list[str]) -> list[ContainerRun]:
     results = pm.hook.containers_for_prompt(prompt=prompt)
     result = sum(results, [])
     if not result:
