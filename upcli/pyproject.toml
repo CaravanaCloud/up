@@ -11,8 +11,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 uplib = "^0.2.19"
-up-splat = "0.2.19"
-up-ansible = "0.2.19"
+up-splat = "^0.2.19"
+up-ansible = "^0.2.19"
 
 
 [build-system]

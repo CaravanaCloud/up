@@ -42,4 +42,4 @@ url = "../uplib"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "f4651ab328ff78cc8ca7b85595ce9e48575a21b03d0e46eeb4d1a2872114235f"
+content-hash = "66256ef627dbd853e5ac39cf83ed3200352b0f92197265bc5a65a417be812ac4"

@@ -1,9 +1,9 @@
 tasks:
   - name: CLI
     init: |
-      cd ./upcli
-      poetry install
+      ./install_all.sh
       alias up='poetry run up'
+      echo "Installed at $(date)"
     command: |
       echo "Ready at $(date)"
 

@@ -1,9 +1,14 @@
 from dynaconf import Dynaconf
+import logging
 
 settings = Dynaconf(
     envvar_prefix="UP",
-    settings_files=['settings.toml', '.secrets.toml'],
+    settings_files=['settings.toml', '.secrets.toml']
 )
 
-# `envvar_prefix` = export envvars with `export DYNACONF_FOO=bar`.
-# `settings_files` = Load these files in the order.
+def get_log_level():
+    level_name = settings.get("log_level", "INFO")
+    level = logging.getLevelName(level_name)
+    return level
+
+

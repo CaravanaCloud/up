@@ -12,6 +12,9 @@ pm = pluggy.PluginManager("up")
 
 from .match import does_match, if_prompt_matches
 from .containers import ContainerRun, ContainerRuns
+from .main import up_main
+from .logging import log
+
 
 __all__ = [Context,
            Prompt,
@@ -21,4 +24,6 @@ __all__ = [Context,
            hookimpl,
            pm,
            does_match,
-           if_prompt_matches]
+           if_prompt_matches,
+           up_main,
+           log]
