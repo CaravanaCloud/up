@@ -1,11 +1,9 @@
-import sys
-import logging as log
-from datetime import datetime
 import shlex
 
 from . import pm, Context, Prompt
 from .containers import Containers, ContainerRun
 from .plugins import load_plugins
+from .logging import log
 
 def up_main(context: Context, prompt: Prompt): 
     containers = Containers()

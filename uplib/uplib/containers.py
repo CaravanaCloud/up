@@ -1,8 +1,8 @@
-import logging as log
 import docker
 import subprocess
 from dataclasses import dataclass, field
 from typing import TypeAlias
+from .logging import log
 
 # https://docker-py.readthedocs.io/en/stable/containers.html
 @dataclass
@@ -21,7 +21,7 @@ ContainerRuns:TypeAlias = list[ContainerRun]
 
 class DockerContainers:
     def run(self, run: ContainerRun):
-        log.debug("Running container: %s", run)
+        log.info("Running container: %s", run)
         client = docker.from_env()
         #TODO: Catch errors, print properly, pass all params
         #TODO: Locate bash properly
@@ -34,10 +34,10 @@ class DockerContainers:
                 image=run.image, 
                 command= command,
                 auto_remove=run.auto_remove)
-            log.debug("container result: \n %s", result)
+            log.info("container result: \n %s", result)
             
         except Exception as e:
-            log.debug("Failed to run container")
+            log.error("Failed to run container")
             log.debug("%s", run)
             log.error("%s", e)
         
