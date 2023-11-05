@@ -16,7 +16,7 @@ def if_prompt_matches(mk_run_config: Callable[[], ContainerRun],
     if not prompt:
         return None
     if does_match(prompt, args):
-        log.info(f"MATCH: prompt={prompt}, args={args}")
+        log.debug(f"MATCH: prompt={prompt}, args={args}")
         return [mk_run_config(prompt)]
     log.debug(f"NO MATCH: prompt={prompt}, args={args}")
     return None

@@ -14,6 +14,19 @@ type = "directory"
 url = "../up_ansible"
 
 [[package]]
+name = "up-aws"
+version = "0.2.19"
+description = ""
+optional = false
+python-versions = "*"
+files = []
+develop = true
+
+[package.source]
+type = "directory"
+url = "../up_aws"
+
+[[package]]
 name = "up-splat"
 version = "0.2.19"
 description = ""
@@ -42,4 +55,4 @@ url = "../uplib"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "66256ef627dbd853e5ac39cf83ed3200352b0f92197265bc5a65a417be812ac4"
+content-hash = "1ae44d95f4e58041a33bc618557f34ff46fe7e91101217eefd57ba92860ab546"

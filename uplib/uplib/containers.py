@@ -15,6 +15,8 @@ class ContainerRun:
     volumes: dict[str, str]  = field(kw_only=True, default_factory=dict)
     auto_remove: bool  = field(kw_only=True, default=True)
     network_mode: str  = field(kw_only=True, default="host")
+    # 
+    bash_wrap: bool = field(kw_only=True, default=False)
 
 ContainerRuns:TypeAlias = list[ContainerRun]
 
@@ -26,7 +28,9 @@ class DockerContainers:
         #TODO: Catch errors, print properly, pass all params
         #TODO: Locate bash properly
         #TODO: Consider if every command should be auto-wrapped in bash (perhaops detect if contains pipes or redirects)
-        command = ["sh", "-c", subprocess.list2cmdline(run.command)]
+        command = run.command
+        if (run.bash_wrap):
+            command = ["sh", "-c", subprocess.list2cmdline(command)]
         log.debug("$: %s", run)
         
         try:

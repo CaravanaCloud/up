@@ -18,6 +18,10 @@ pushd up_splat
 poetry install
 popd
 
+pushd up_aws
+poetry install
+popd
+
 pushd upcli
 poetry install
 popd

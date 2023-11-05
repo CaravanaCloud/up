@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "up-aws"
+version = "0.2.19"
+description = ""
+authors = ["Julio Faerman <356476+faermanj@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+# boto3 = "^1.28.78"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
