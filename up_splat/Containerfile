@@ -1,10 +1,11 @@
 # docker build --no-cache --progress=plain -t caravanacloud/$(basename $PWD) -f Containerfile .
+
 FROM registry.fedoraproject.org/fedora:38
 
-# Oracle Cloud CLI
-
+# System Updates
+RUN bash -c "sudo dnf -y update"
 RUN bash -c "sudo dnf -y install unzip zip pipx wget nodejs python3 python3-pip"
-RUN bash -c "python3 -m pip install --no-cache-dir oci-cli"
+
 
 # Java and Quarkus
 ARG JAVA_SDK="21-graalce"
@@ -110,15 +111,15 @@ RUN bash -c "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 
     && aws --version \
     "
 
-RUN bash -c "npm install -g aws-cdk"
+# RUN bash -c "npm install -g aws-cdk"
 
-ARG SAM_URL="https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip"
-RUN bash -c "curl -Ls '${SAM_URL}' -o '/tmp/aws-sam-cli-linux-x86_64.zip' \
-    && unzip '/tmp/aws-sam-cli-linux-x86_64.zip' -d '/tmp/sam-installation' \
-    && sudo '/tmp/sam-installation/install' \
-    && sam --version"
+# ARG SAM_URL="https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip"
+# RUN bash -c "curl -Ls '${SAM_URL}' -o '/tmp/aws-sam-cli-linux-x86_64.zip' \
+#    && unzip '/tmp/aws-sam-cli-linux-x86_64.zip' -d '/tmp/sam-installation' \
+#    && sudo '/tmp/sam-installation/install' \
+#    && sam --version"
 
-RUN bash -c "pip install cloudformation-cli cloudformation-cli-java-plugin cloudformation-cli-go-plugin cloudformation-cli-python-plugin cloudformation-cli-typescript-plugin"
+# RUN bash -c "pip install cloudformation-cli cloudformation-cli-java-plugin cloudformation-cli-go-plugin cloudformation-cli-python-plugin cloudformation-cli-typescript-plugin"
 
 # Azure CLI
 # RUN bash -c "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash"
@@ -134,6 +135,12 @@ RUN bash -c "curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/
     && sudo ln -s /workspace/red-pod/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud \
     "
 
+# Oracle Cloud CLI
+RUN bash -c "python3 -m pip install --no-cache-dir oci-cli"
+
+# COPY
+COPY . /opt/workspace
+RUN bash -c "find /opt/workspace"
 
 # Done :)
 RUN bash -c "echo 'done.'"
