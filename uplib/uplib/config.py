@@ -1,16 +1,13 @@
 from dynaconf import Dynaconf
 import logging
-from . import settings_files
 
 _settings = None
 def settings():
     global _settings
     if not _settings:
         _settings = Dynaconf(
-                environments=True,
                 envvar_prefix="UP",
-                settings_files=settings_files
-            ) 
+                load_dotenv=True,) 
     return _settings
 
 def get_log_level():

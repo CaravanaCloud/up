@@ -1,1 +1,6 @@
 # here goes some yaml
+prompts:
+  - prompt: "splat create cluster oci-standard"
+    env:
+      - AI_OFFLINETOKEN
+      - PULL_SECRET

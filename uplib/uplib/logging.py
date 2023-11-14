@@ -2,6 +2,7 @@ import sys
 import logging
 from .config import get_log_level
 
+TRACE = 5
 
 def init_logging():
     sys.set_int_max_str_digits(999999)    

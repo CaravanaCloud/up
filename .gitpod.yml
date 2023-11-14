@@ -1,9 +1,9 @@
 tasks:
-  - name: CLI
-    init: |
-      ./install_all.sh      
+  - name: UP CLI
+    init: |   
       echo "Installed at $(date)"
     command: |
+      ./install_all.sh   
       alias up='poetry run up'
       cd upcli
       echo "Ready at $(date)"

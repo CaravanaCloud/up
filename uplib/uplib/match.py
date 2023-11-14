@@ -1,6 +1,6 @@
 from typing import Callable
 from .containers import ContainerRun
-from .logging import log
+from .logging import log, TRACE
 from . import Prompt
 
 def does_match(prompt: Prompt, args) -> bool:
@@ -16,7 +16,7 @@ def if_prompt_matches(mk_run_config: Callable[[], ContainerRun],
     if not prompt:
         return None
     if does_match(prompt, args):
-        log.debug(f"MATCH: prompt={prompt}, args={args}")
+        log.log(TRACE ,f"MATCH: prompt={prompt}, args={args}")
         return [mk_run_config(prompt)]
-    log.debug(f"NO MATCH: prompt={prompt}, args={args}")
+    log.log(TRACE, f"NO MATCH: prompt={prompt}, args={args}")
     return None
