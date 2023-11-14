@@ -6,9 +6,11 @@ Context: TypeAlias = dict[str, str]
 Prompt: TypeAlias = list[str]
 
 
+# TODO: Consider moving all globals to a single object
 hookspec = pluggy.HookspecMarker("up")
 hookimpl = pluggy.HookimplMarker("up")
 pm = pluggy.PluginManager("up")
+settings_files = []
 
 from .match import does_match, if_prompt_matches
 from .containers import ContainerRun, ContainerRuns
