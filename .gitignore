@@ -1,3 +1,6 @@
 *.pyc
 dist
 *.bak.*
+
+.pyenv
+__pycache__
