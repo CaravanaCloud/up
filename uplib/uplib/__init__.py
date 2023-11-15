@@ -10,6 +10,7 @@ Prompt: TypeAlias = list[str]
 hookspec = pluggy.HookspecMarker("up")
 hookimpl = pluggy.HookimplMarker("up")
 pm = pluggy.PluginManager("up")
+settings_maps = {}
 
 from .match import does_match, if_prompt_matches
 from .containers import ContainerRun, ContainerRuns
