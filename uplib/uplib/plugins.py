@@ -84,7 +84,7 @@ def load_prompts(prompts):
         load_prompt(prompt_cfg)
 
 def load_prompt(prompt_cfg):
-    log.info("Loading prompt %s", prompt_cfg)  
+    log.debug("Loading prompt %s", prompt_cfg)  
     prompt = prompt_cfg.get("prompt")
     if not prompt:
         log.error("Prompt not defined in %s", prompt_cfg)
