@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "up-demo"
+version = "0.2.19"
+description = ""
+readme = "README.md"
+authors = ["Julio Faerman <jufaerma@redhat.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+uplib = "^0.2.19"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "up-demo"

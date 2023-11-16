@@ -27,6 +27,19 @@ type = "directory"
 url = "../up_aws"
 
 [[package]]
+name = "up-demo"
+version = "0.2.19"
+description = ""
+optional = false
+python-versions = "*"
+files = []
+develop = true
+
+[package.source]
+type = "directory"
+url = "../up_demo"
+
+[[package]]
 name = "up-splat"
 version = "0.2.19"
 description = ""
@@ -55,4 +68,4 @@ url = "../uplib"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "1ae44d95f4e58041a33bc618557f34ff46fe7e91101217eefd57ba92860ab546"
+content-hash = "497e71b21cfd072d61e638e3b23af28ef43e25cd1d731f95d88e2521f9946f72"
