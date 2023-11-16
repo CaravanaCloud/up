@@ -27,7 +27,7 @@ def up_main(context: Context, prompt: Prompt):
 
 def default_container(prompt):
     return ContainerRun(
-        image=settings().get("default_image", "fedora"),
+        image=Config.default_image.get(),
         command=prompt)
 
 
