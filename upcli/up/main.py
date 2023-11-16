@@ -31,5 +31,7 @@ def cli_main():
         uplib.up_main(context, prompt)
     except Exception as e:
         log.error(e)
+        # print stack trace
+        raise e
         exit_cli("UP_ERROR")
         

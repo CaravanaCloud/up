@@ -4,8 +4,11 @@ from . import pm, Context, Prompt
 from .containers import Containers, ContainerRun
 from .plugins import load_plugins
 from .logging import log
+from .config import Config
 
-def up_main(context: Context, prompt: Prompt): 
+
+def up_main(context: Context, prompt: Prompt):
+    log.info("*** %s", Config.welcome_message.get() + " ***")
     containers = Containers()
     if not prompt:
         log.error("No prompts found")
@@ -21,10 +24,12 @@ def up_main(context: Context, prompt: Prompt):
     for container in container_runs:
         containers.run(container)
 
+
 def default_container(prompt):
     return ContainerRun(
-        image="fedora",
+        image=settings().get("default_image", "fedora"),
         command=prompt)
+
 
 def containers_for_prompt(prompt) -> list[ContainerRun]:
     from_plugins = containers_from_plugins(prompt)
@@ -43,4 +48,3 @@ def containers_from_plugins(prompt: list[str]) -> list[ContainerRun]:
     if not result:
         result = []
     return result
-
