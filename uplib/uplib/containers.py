@@ -1,4 +1,5 @@
 import re
+import os
 import docker
 import subprocess
 from rich.console import Console
@@ -29,8 +30,25 @@ ContainerRuns:TypeAlias = list[ContainerRun]
 
 
 class DockerContainers:
+    @classmethod
+    def volumes_of(cls, run:ContainerRun):
+        settings_vols = settings_maps.get("volumes", {})
+        cwd = os.getcwd()
+        home = os.path.expanduser("~")
+        default_vols = {
+            home : {
+                "bind": "/tmp/up_home",
+                "mode": "rw"
+            },
+            cwd : {
+                "bind": "/tmp/up_cwd",
+                "mode": "rw"
+            }
+        }
+        result = settings_vols | default_vols
+        return result
+    
     def run(self, run: ContainerRun):
-        log.info("Running container: %s", run)
         client = docker.from_env()
         #TODO: Catch errors, print properly, pass all params
         #TODO: Locate bash properly
@@ -40,15 +58,27 @@ class DockerContainers:
             command = ["sh", "-c", subprocess.list2cmdline(command)]
         log.debug("$: %s", run)
         name = run.name if run.name else generate_container_name(run)
+        volumes = DockerContainers.volumes_of(run)
+        ports = settings_maps.get("ports")
         console = Console()
+        console.log(f"Running container: {name}")
+        console.log({
+            "name": name,
+            "image": run.image, 
+            "command":  command,
+            "auto_remove": run.auto_remove,
+            "volumes": volumes,
+            "ports": ports,
+            "detach": True
+        })
         try:
             container = client.containers.run(
                 name=name,
                 image=run.image, 
                 command= command,
                 auto_remove=run.auto_remove,
-                volumes=settings_maps.get("volumes"),
-                ports=settings_maps.get("ports"),
+                volumes=volumes,
+                ports=ports,
                 detach=True
             )
             for line in container.logs(stream=True):

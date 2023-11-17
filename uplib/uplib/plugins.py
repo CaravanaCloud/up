@@ -4,13 +4,12 @@ import pkgutil
 import os
 import pluggy
 import json
-from dynaconf import Dynaconf
 
 from . import settings_maps
 from .containers import Containers
 from .hookspecs import containers_for_prompt
 from .logging import log
-from .config import Config
+from .config import Settings, Config
 
 
 def load_plugins(context):
@@ -52,35 +51,19 @@ def load_plugin(plugin_name, plugin_dir):
                       plugin_name, plugin_dir)
     except Exception as e:
         log.error("Error loading plugin %s: %s", plugin_name, str(e))
+        raise e
         plugin_name = None
     return (plugin_name, settings_file)
 
 
 def load_settings(plugin_name, settings_path):
-    env_prefix = prefix_for(plugin_name)
-    settings = Dynaconf(
-        load_dotenv=True,
-        envvar_prefix=env_prefix,
-        settings_file=settings_path,)
+    settings = Settings(plugin_name, settings_path)
+    prompts = settings.get(Config.prompts)
     # Load Environment Variables
-    prompts = settings.get("prompts", [])
     log.debug("Loading %s prompts: %s", len(prompts), prompts)
     load_prompts(prompts)
-    #load_volumes()
-    #load_ports()
-    # Load Ports
-    # ...
-    log.debug("Settings loaded")
-    settings_json = json.dumps(settings_maps, indent=2)
-    log.info("Loaded settings\n%s", settings_json)
+    log.info("Loaded settings for plugin %s@%s\n%s", plugin_name, settings_path, str(settings))
     return settings
-
-
-def prefix_for(plugin_mod):
-    plugin_name = plugin_mod.__name__
-    plugin_name = plugin_name.replace("-", "_")
-    plugin_name = plugin_name.upper()
-    return plugin_name
 
 def load_prompts(prompts):
     for prompt_cfg in prompts:
@@ -130,6 +113,8 @@ def load_ports():
         settings_maps["ports"] = Config.ports.get()
 
 def settings(prompt):
+    #TODO: Delegate to Settings.of_prompt(prompt)
+    #TODO: Create type-safe PromptConfig enum?
     settings_map = settings_maps.get(prompt)
     if not settings_map:
         settings_map = {}
