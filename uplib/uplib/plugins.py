@@ -1,4 +1,5 @@
 import importlib
+from logging import debug
 import pkgutil
 import os
 import pluggy
@@ -9,6 +10,7 @@ from . import settings_maps
 from .containers import Containers
 from .hookspecs import containers_for_prompt
 from .logging import log
+from .config import Config
 
 
 def load_plugins(context):
@@ -64,7 +66,8 @@ def load_settings(plugin_name, settings_path):
     prompts = settings.get("prompts", [])
     log.debug("Loading %s prompts: %s", len(prompts), prompts)
     load_prompts(prompts)
-    # Load Volumes
+    #load_volumes()
+    #load_ports()
     # Load Ports
     # ...
     log.debug("Settings loaded")
@@ -82,6 +85,12 @@ def prefix_for(plugin_mod):
 def load_prompts(prompts):
     for prompt_cfg in prompts:
         load_prompt(prompt_cfg)
+        log.debug("use default volumes? %s", prompt_cfg.get("default_volumes"))
+        if prompt_cfg.get("default_volumes"):
+            load_volumes()
+        log.debug("use default ports? %s", prompt_cfg.get("default_ports"))
+        if prompt_cfg.get("default_ports"):
+            load_ports()
 
 def load_prompt(prompt_cfg):
     log.debug("Loading prompt %s", prompt_cfg)  
@@ -104,7 +113,22 @@ def load_env_list(prompt, env):
     for var in env:
         log.debug("Loading environment variable [%s]", var)
         env_map[var] = {}
-        
+        log.debug(settings_map)
+
+def load_volumes():
+    log.debug("Loading volumes")
+    _ = settings("volumes")
+    volumes = settings_maps.get("volumes")
+    if not volumes:
+        settings_maps["volumes"] = Config.volumes.get()
+
+def load_ports():
+    log.debug("Loading ports")
+    _ = settings("ports")
+    ports = settings_maps.get("ports")
+    if not ports:
+        settings_maps["ports"] = Config.ports.get()
+
 def settings(prompt):
     settings_map = settings_maps.get(prompt)
     if not settings_map:

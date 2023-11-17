@@ -9,6 +9,8 @@ class Config(Enum):
     default_image = "default_image"
     welcome_message = "welcome_message"
     log_level = "log_level"
+    volumes = "volumes"
+    ports = "ports"
     
     def get(self):
         key = self.value
