@@ -113,6 +113,8 @@ def load_ports():
         settings_maps["ports"] = Config.ports.get()
 
 def settings(prompt):
+    #TODO: Delegate to Settings.of_prompt(prompt)
+    #TODO: Create type-safe PromptConfig enum?
     settings_map = settings_maps.get(prompt)
     if not settings_map:
         settings_map = {}
