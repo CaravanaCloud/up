@@ -3,3 +3,6 @@ prompts:
     env:
       - AI_OFFLINETOKEN
       - PULL_SECRET
+    default_volumes: true
+    default_ports: true
+

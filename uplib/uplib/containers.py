@@ -1,11 +1,14 @@
 import re
 import docker
 import subprocess
+from rich.console import Console
+from rich.markup import escape
 
 from dataclasses import dataclass, field
 from typing import TypeAlias
 from .logging import log
 from datetime import datetime
+from . import settings_maps
 
 # https://docker-py.readthedocs.io/en/stable/containers.html
 @dataclass
@@ -37,16 +40,20 @@ class DockerContainers:
             command = ["sh", "-c", subprocess.list2cmdline(command)]
         log.debug("$: %s", run)
         name = run.name if run.name else generate_container_name(run)
+        console = Console()
         try:
             container = client.containers.run(
                 name=name,
                 image=run.image, 
                 command= command,
                 auto_remove=run.auto_remove,
-                detach=True)
+                volumes=settings_maps.get("volumes"),
+                ports=settings_maps.get("ports"),
+                detach=True
+            )
             for line in container.logs(stream=True):
                 line = line.decode("utf-8").strip()
-                log.info("%s", line)
+                console.print(escape(line))
             container.wait()
             log.debug("container ended.")
             

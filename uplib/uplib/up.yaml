@@ -1,2 +1,8 @@
 default_image: fedora
 welcome_message: Thank you for running up!
+volumes:
+  /home/fabio/:
+      bind: /mnt/vol2
+      mode: rw
+ports:
+  2222/tcp: 3333
