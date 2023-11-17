@@ -23,6 +23,8 @@ class ContainerRun:
     volumes: dict[str, str]  = field(kw_only=True, default_factory=dict)
     auto_remove: bool  = field(kw_only=True, default=True)
     network_mode: str  = field(kw_only=True, default="host")
+    # TODO: user
+    working_dir: str  = field(kw_only=True, default="/")
     # Feature Flags
     bash_wrap: bool = field(kw_only=True, default=False)
 
@@ -45,7 +47,9 @@ class DockerContainers:
                 "mode": "rw"
             }
         }
-        result = settings_vols | default_vols
+        print(type(run.volumes))
+        print(run.volumes)
+        result = run.volumes | settings_vols | default_vols 
         return result
     
     def run(self, run: ContainerRun):
@@ -60,6 +64,8 @@ class DockerContainers:
         name = run.name if run.name else generate_container_name(run)
         volumes = DockerContainers.volumes_of(run)
         ports = settings_maps.get("ports")
+        user = "up_user"
+        working_dir = run.working_dir
         console = Console()
         console.log(f"Running container: {name}")
         console.log({
@@ -69,6 +75,8 @@ class DockerContainers:
             "auto_remove": run.auto_remove,
             "volumes": volumes,
             "ports": ports,
+            "user": user,
+            "working_dir": working_dir,
             "detach": True
         })
         try:
@@ -79,6 +87,8 @@ class DockerContainers:
                 auto_remove=run.auto_remove,
                 volumes=volumes,
                 ports=ports,
+                user=user,
+                working_dir=working_dir,
                 detach=True
             )
             for line in container.logs(stream=True):
@@ -91,6 +101,7 @@ class DockerContainers:
             log.error("Failed to run container")
             log.debug("%s", run)
             log.error("%s", e)
+            raise e
 
 _container_name_pattern = '[^a-zA-Z0-9_.-]'
 def generate_container_name(run):

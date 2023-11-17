@@ -1,0 +1,43 @@
+# docker build --no-cache --progress=plain -t caravanacloud/$(basename $PWD) -f Containerfile .
+FROM fedora
+
+# System Updates
+# RUN bash -c "sudo dnf -y update"
+RUN bash -c "sudo dnf -y install unzip zip pipx wget python3 python3-pip"
+
+# AWS CLIs
+RUN bash -c "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip' && unzip awscliv2.zip \
+    && sudo ./aws/install \
+    && aws --version \
+    "
+
+# RUN bash -c "npm install -g aws-cdk"
+
+# ARG SAM_URL="https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip"
+# RUN bash -c "curl -Ls '${SAM_URL}' -o '/tmp/aws-sam-cli-linux-x86_64.zip' \
+#    && unzip '/tmp/aws-sam-cli-linux-x86_64.zip' -d '/tmp/sam-installation' \
+#    && sudo '/tmp/sam-installation/install' \
+#    && sam --version"
+
+# RUN bash -c "pip install cloudformation-cli cloudformation-cli-java-plugin cloudformation-cli-go-plugin cloudformation-cli-python-plugin cloudformation-cli-typescript-plugin"
+
+# COPY
+# Creates user up_user inside container
+ARG USER=up_user
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g $GID $USER && \
+    useradd -l -u $UID -g $USER -m -d /home/$USER $USER && \
+    chown -R $USER:$USER /home/$USER
+
+USER up_user
+# Python Poetry
+RUN bash -c "pipx install poetry && python3 -m pipx ensurepath"
+RUN bash -c "/home/up_user/.local/bin/poetry --version"
+
+COPY ./opt /opt
+# RUN bash -c "find /opt"
+
+# Done :)
+RUN bash -c "echo 'done.'"
+

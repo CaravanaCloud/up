@@ -21,8 +21,8 @@ def up_main(context: Context, prompt: Prompt):
     if not container_runs:
         log.error("No containers found, using defaults")
         container_runs = [default_container(prompt)]
-    for container in container_runs:
-        containers.run(container)
+    for container_run in container_runs:
+        containers.run(container_run)
 
 
 def default_container(prompt):
@@ -33,18 +33,10 @@ def default_container(prompt):
 
 def containers_for_prompt(prompt) -> list[ContainerRun]:
     from_plugins = containers_from_plugins(prompt)
-    from_configs = containers_from_dynaconf(prompt)
-    result = from_plugins + from_configs
-    return result
-
-
-def containers_from_dynaconf(prompt: list[str]) -> list[ContainerRun]:
-    return []
-
+    return from_plugins
 
 def containers_from_plugins(prompt: list[str]) -> list[ContainerRun]:
-    results = pm.hook.containers_for_prompt(prompt=prompt)
-    result = sum(results, [])
+    result = pm.hook.containers_for_prompt(prompt=prompt)
     if not result:
-        result = []
+        return []
     return result
