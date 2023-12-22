@@ -34,8 +34,12 @@ ContainerRuns:TypeAlias = list[ContainerRun]
 
 class DockerContainers:
     @classmethod
-    def volumes_of(cls, run:ContainerRun):
-        settings_vols = settings_maps.get("volumes", {})
+    def volumes_of(cls, run: ContainerRun, prompt: str):
+        plugin_name = prompt.split()[0]
+        default_volumes = settings_maps[plugin_name].get("volumes", {})
+        settings_vols = default_volumes.to_dict() if default_volumes else {}
+        if settings_maps[plugin_name].get(prompt):
+            settings_vols = settings_vols | settings_maps[plugin_name][prompt].get("volumes", {})
         cwd = os.getcwd()
         home = os.path.expanduser("~")
         default_vols = {
@@ -52,20 +56,30 @@ class DockerContainers:
         print(run.volumes)
         result = run.volumes | settings_vols | default_vols 
         return result
+
+    @classmethod
+    def ports_of(cls, prompt: str):
+        plugin_name = prompt.split()[0]
+        default_ports = settings_maps[plugin_name].get("ports", {})
+        ports = default_ports.to_dict() if default_ports else {}
+        if settings_maps[plugin_name].get(prompt):
+            ports = ports | settings_maps[plugin_name][prompt].get("ports", {})
+        return ports
     
     def run(self, run: ContainerRun):
         client = docker.from_env()
         #TODO: Catch errors, print properly, pass all params
         #TODO: Locate bash properly
         #TODO: Consider if every command should be auto-wrapped in bash (perhaops detect if contains pipes or redirects)
-        
+       
         command = run.command
+        prompt = ' '.join(run.command[1:])
         if (run.bash_wrap):
             command = ["sh", "-c", subprocess.list2cmdline(command)]
         log.debug("$: %s", run)
         name = run.name if run.name else generate_container_name(run)
-        volumes = DockerContainers.volumes_of(run)
-        ports = settings_maps.get("ports")
+        volumes = DockerContainers.volumes_of(run, prompt)
+        ports = DockerContainers.ports_of(prompt)
         # TODO only pass user when sure (or defined by plugin)
         # user = "up_user"
         user = run.user
