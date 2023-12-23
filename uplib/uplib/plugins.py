@@ -58,25 +58,29 @@ def load_plugin(plugin_name, plugin_dir):
 
 def load_settings(plugin_name, settings_path):
     settings = Settings(plugin_name, settings_path)
-    prompts = settings.get(Config.prompts)
+    prompts = settings.settings.get("prompts")
+    #prompts = settings.get(Config.prompts)
     # Load Environment Variables
     log.debug("Loading %s prompts: %s", len(prompts), prompts)
-    load_prompts(prompts)
+    load_prompts(prompts, settings)
     log.info("Loaded settings for plugin %s@%s\n%s", plugin_name, settings_path, str(settings))
     return settings
 
-def load_prompts(prompts):
+def load_prompts(prompts, settings):
     for prompt_cfg in prompts:
         load_prompt(prompt_cfg)
+        load_volumes(prompt_cfg)
+        load_ports(prompt_cfg)
+        plugin_name = prompt_cfg.get('prompt').split()[0]
         log.debug("use default volumes? %s", prompt_cfg.get("default_volumes"))
         if prompt_cfg.get("default_volumes"):
-            load_volumes()
+            settings_maps[plugin_name].update({"volumes": settings.settings.get("volumes", {})})
         log.debug("use default ports? %s", prompt_cfg.get("default_ports"))
         if prompt_cfg.get("default_ports"):
-            load_ports()
+            settings_maps[plugin_name].update({"ports": settings.settings.get("ports", {})})
 
 def load_prompt(prompt_cfg):
-    log.debug("Loading prompt %s", prompt_cfg)  
+    log.debug("Loading prompt %s", prompt_cfg)
     prompt = prompt_cfg.get("prompt")
     if not prompt:
         log.error("Prompt not defined in %s", prompt_cfg)
@@ -98,25 +102,29 @@ def load_env_list(prompt, env):
         env_map[var] = {}
         log.debug(settings_map)
 
-def load_volumes():
+def load_volumes(prompt):
     log.debug("Loading volumes")
-    _ = settings("volumes")
-    volumes = settings_maps.get("volumes")
+    settings_map = settings(prompt.get('prompt'))
+    volumes = settings_map.get("volumes")
     if not volumes:
-        settings_maps["volumes"] = Config.volumes.get()
+        settings_map["volumes"] = Config.volumes.get() | prompt.get('volumes', {})
 
-def load_ports():
+def load_ports(prompt):
     log.debug("Loading ports")
-    _ = settings("ports")
-    ports = settings_maps.get("ports")
+    settings_map = settings(prompt.get('prompt'))
+    ports = settings_map.get("ports")
     if not ports:
-        settings_maps["ports"] = Config.ports.get()
+        settings_map["ports"] = Config.ports.get() | prompt.get('ports', {})
+    log.debug(settings_map)
 
 def settings(prompt):
     #TODO: Delegate to Settings.of_prompt(prompt)
     #TODO: Create type-safe PromptConfig enum?
-    settings_map = settings_maps.get(prompt)
+    plugin_name = prompt.split()[0]
+    plugin_map = settings_maps.get(plugin_name, {})
+    if not plugin_map:
+        settings_maps[plugin_name] = plugin_map
+    settings_map = plugin_map.get(prompt, {})
     if not settings_map:
-        settings_map = {}
-        settings_maps[prompt] = settings_map
+        plugin_map[prompt] = settings_map
     return settings_map
