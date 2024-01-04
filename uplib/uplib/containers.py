@@ -36,9 +36,12 @@ class DockerContainers:
     @classmethod
     def volumes_of(cls, run: ContainerRun, prompt: str):
         plugin_name = prompt.split()[0]
-        default_volumes = settings_maps[plugin_name].get("volumes", {})
+        log.debug("loading volumes for plugin_name: %s", plugin_name)
+
+        plugin_settings = settings_maps.get(plugin_name, {})
+        default_volumes = plugin_settings.get("volumes", {})
         settings_vols = default_volumes.to_dict() if default_volumes else {}
-        if settings_maps[plugin_name].get(prompt):
+        if settings_maps.get(plugin_name, {}).get(prompt):
             settings_vols = settings_vols | settings_maps[plugin_name][prompt].get("volumes", {})
         cwd = os.getcwd()
         home = os.path.expanduser("~")
@@ -60,9 +63,9 @@ class DockerContainers:
     @classmethod
     def ports_of(cls, prompt: str):
         plugin_name = prompt.split()[0]
-        default_ports = settings_maps[plugin_name].get("ports", {})
+        default_ports = settings_maps.get(plugin_name, {}).get("ports", {})
         ports = default_ports.to_dict() if default_ports else {}
-        if settings_maps[plugin_name].get(prompt):
+        if settings_maps.get(plugin_name, {} ).get(prompt):
             ports = ports | settings_maps[plugin_name][prompt].get("ports", {})
         return ports
     
