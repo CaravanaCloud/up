@@ -15,6 +15,7 @@ up-splat = "^0.2.19"
 up-ansible = "^0.2.19"
 up-aws = "^0.2.19"
 up-demo = "^0.2.19"
+ruamel-yaml = "^0.18.5"
 
 [build-system]
 requires = ["poetry-core"]

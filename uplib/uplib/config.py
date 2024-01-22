@@ -68,7 +68,7 @@ class Config(Enum):
     # (key, default_value)
     default_image = ("default_image", "fedora")
     welcome_message = ("welcome_message", "Thank your for running UP!")
-    log_level = ("log_level", "INFO")
+    log_level = ("log_level", "ERROR")
     volumes = ("volumes", {})
     ports = ("ports", {})
     prompts = ("prompts", [])
@@ -80,6 +80,8 @@ class Config(Enum):
 
 
 def get_log_level():
-    return Config.log_level.get()
-
+    try:
+        return Settings().settings.log_level
+    except AttributeError:
+        return Config.log_level.get()
 
