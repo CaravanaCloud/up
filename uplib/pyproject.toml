@@ -3,6 +3,9 @@ name = "uplib"
 version = "0.2.19"
 description = ""
 authors = ["Julio Faerman <356476+faermanj@users.noreply.github.com>"]
+include = [
+  "up.yaml"
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
