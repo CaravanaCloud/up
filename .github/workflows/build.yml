@@ -1,0 +1,94 @@
+name: Build and publish packages
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  linux:
+    name: "building ${{ matrix.package }} to ${{ matrix.platform }}"
+    runs-on: ubuntu-latest
+    env:
+      CIBW_BUILD: "cp312*-${{ matrix.platform }}"
+    strategy:
+      matrix:
+        platform: [manylinux_x86_64, musllinux_x86_64]
+        package: [upcli, uplib]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enter ${{ matrix.package }} dir
+        uses: cd ${{ matrix.package }}
+
+      - name: Build wheel
+        uses: pypa/cibuildwheel@v2.16.2
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./wheelhouse/*.whl
+
+  windows:
+    name: "building ${{ matrix.package }} to ${{ matrix.platform }}"
+    runs-on: windows-latest
+    env:
+      CIBW_BUILD: "cp312*-${{ matrix.platform }}"
+    strategy:
+      matrix:
+        platform: [cp312-win_amd64]
+        package: [upcli, uplib]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enter ${{ matrix.package }} dir
+        uses: cd ${{ matrix.package }}
+
+      - name: Build wheel
+        uses: pypa/cibuildwheel@v2.16.2
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./wheelhouse/*.whl
+
+  macos:
+    name: "building ${{ matrix.package }} to ${{ matrix.platform }}"
+    runs-on: macos-latest
+    env:
+      CIBW_BUILD: "cp312*-${{ matrix.platform }}"
+    strategy:
+      matrix:
+        platform: [macosx_arm64, macosx_x86_64]
+        package: [upcli, uplib]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enter ${{ matrix.package }} dir
+        uses: cd ${{ matrix.package }}
+
+      - name: Build wheel
+        uses: pypa/cibuildwheel@v2.16.2
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./wheelhouse/*.whl
+
+  publish:
+    needs: [linux, macos, windows]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: "3.12"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Publish packages
+        uses: poetry publish -C=./wheelhouse
+
