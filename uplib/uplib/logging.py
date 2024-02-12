@@ -1,12 +1,12 @@
 import sys
 import logging
-from .config import get_log_level
 from rich.logging import RichHandler
 
+from .config import get_log_level
 TRACE = 5
 
 def init_logging():
-    sys.set_int_max_str_digits(999999)    
+    sys.set_int_max_str_digits(999999)
     level = get_log_level()
     print("Initializing logging with level "+str(level))
     logging.basicConfig(

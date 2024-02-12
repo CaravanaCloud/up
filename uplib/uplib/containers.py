@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from typing import TypeAlias
 from .logging import log
 from datetime import datetime
-from . import settings_maps
+from . import settings_maps, options_map
 
 # https://docker-py.readthedocs.io/en/stable/containers.html
 @dataclass
@@ -55,19 +55,21 @@ class DockerContainers:
                 "mode": "rw"
             }
         }
+        options_volumes = options_map.get('volumes', {})
         print(type(run.volumes))
         print(run.volumes)
-        result = run.volumes | settings_vols | default_vols 
+        result = run.volumes | settings_vols | default_vols | options_volumes
         return result
 
     @classmethod
     def ports_of(cls, prompt: str):
         plugin_name = prompt.split()[0]
+        options_ports = options_map.get('ports', {})
         default_ports = settings_maps.get(plugin_name, {}).get("ports", {})
         ports = default_ports.to_dict() if default_ports else {}
         if settings_maps.get(plugin_name, {} ).get(prompt):
             ports = ports | settings_maps[plugin_name][prompt].get("ports", {})
-        return ports
+        return ports | options_ports
     
     def run(self, run: ContainerRun):
         client = docker.from_env()
@@ -76,7 +78,7 @@ class DockerContainers:
         #TODO: Consider if every command should be auto-wrapped in bash (perhaops detect if contains pipes or redirects)
        
         command = run.command
-        prompt = ' '.join(run.command[1:])
+        prompt = ' '.join(run.command)
         if (run.bash_wrap):
             command = ["sh", "-c", subprocess.list2cmdline(command)]
         log.debug("$: %s", run)

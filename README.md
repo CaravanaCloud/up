@@ -31,3 +31,24 @@ Provide a framework so that solutions can be automated with Ansible, and leverag
 
 For a better integration with the Ansible ecosystem, this project is mostly written in python, using pluggy as a plugin system.
 
+# Documentation
+
+## The CLI
+
+### How do I use up?
+Below, an example usage of up:
+```bash
+$ up ansible --version # will output the Ansible version
+```
+"But what if I want to pass a port or volume?" So you have 2 options: first: set the volume/port inside the `up.yaml` of your plugin, or in the example case the Ansible plugin; or second: pass the volume/port on the command, e.g:
+```bash
+$ up -Xp=8080/tcp:5000 ansible --version # will set the port in the container
+$ up -Xv=/home:/mnt/vol3,rw ansible --version # will set the volume in the container
+```
+### Does up have some internal command?
+Yes, the current available commands are in `plugin` reserved keyword:
+```bash
+$ up plugin list # List all installed plugins
+$ up plugin prompts ansible # Shows the prompts from up.yaml of a plugin
+$ up plugin details ansible --version # Shows the prompt configuration from up.yaml of a plugin
+```
