@@ -3,3 +3,4 @@ Pending tasks (create tickets):
 - refactor plugin settings loading 
 `settings_maps.get(plugin_name, {} ).get("prop") => plugin_setting("plugin_name", "prop")`
 so that 
+- review logging (up messages to stderr, application to stdout?)
