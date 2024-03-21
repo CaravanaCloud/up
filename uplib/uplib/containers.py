@@ -11,6 +11,8 @@ from .logging import log
 from datetime import datetime
 from . import settings_maps, options_map
 
+import sys
+
 # https://docker-py.readthedocs.io/en/stable/containers.html
 @dataclass
 class ContainerRun:
@@ -35,8 +37,11 @@ ContainerRuns:TypeAlias = list[ContainerRun]
 class DockerContainers:
     @classmethod
     def volumes_of(cls, run: ContainerRun, prompt: str):
-        plugin_name = prompt.split()[0]
-        log.debug("loading volumes for plugin_name: %s", plugin_name)
+        plugin_name = "__NOT_FOUND__"
+        tokens = prompt.split()
+        if len(tokens):
+            plugin_name = tokens[0]
+        log.debug("loading volumes for prompt: %s", prompt)
 
         plugin_settings = settings_maps.get(plugin_name, {})
         default_volumes = plugin_settings.get("volumes", {})
@@ -56,14 +61,15 @@ class DockerContainers:
             }
         }
         options_volumes = options_map.get('volumes', {})
-        print(type(run.volumes))
-        print(run.volumes)
         result = run.volumes | settings_vols | default_vols | options_volumes
         return result
 
     @classmethod
     def ports_of(cls, prompt: str):
-        plugin_name = prompt.split()[0]
+        plugin_name = "__UNDEFINED__"
+        tokens = prompt.split()
+        if len(tokens):
+            plugin_name = tokens[0]
         options_ports = options_map.get('ports', {})
         default_ports = settings_maps.get(plugin_name, {}).get("ports", {})
         ports = default_ports.to_dict() if default_ports else {}
@@ -89,9 +95,10 @@ class DockerContainers:
         # user = "up_user"
         user = run.user
         working_dir = run.working_dir
-        console = Console()
-        console.log(f"Running container: {name}")
-        console.log({
+        up_console = Console(file=sys.stderr)
+        app_console = Console(file=sys.stdout)
+        up_console.log(f"Running container: {name}")
+        up_console.log({
             "name": name,
             "image": run.image, 
             "command":  command,
@@ -116,7 +123,7 @@ class DockerContainers:
             )
             for line in container.logs(stream=True):
                 line = line.decode("utf-8").strip()
-                console.print(escape(line))
+                app_console.print(escape(line))
             container.wait()
             log.debug("container ended.")
             
@@ -124,7 +131,7 @@ class DockerContainers:
             log.error("Failed to run container")
             log.debug("%s", run)
             log.error("%s", e)
-            raise e
+            # raise e
 
 _container_name_pattern = '[^a-zA-Z0-9_.-]'
 def generate_container_name(run):

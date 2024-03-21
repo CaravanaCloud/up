@@ -35,7 +35,7 @@ def cli_main():
     context = {"executable": executable}
     try:
         prompt_without_options = setup_options(prompt)
-        print(prompt_without_options)
+        # print(prompt_without_options)
         uplib.up_main(context, prompt_without_options)
     except Exception as e:
         log.error(e)
