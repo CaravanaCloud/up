@@ -1,51 +1,62 @@
-# Unified Pluggable Tools
+# Unified Pluggable (UP) Tools
 
-The goal of this project is to enable organizations to build and publish their own unified toolkit, especially regarding CLI tools and solutions. More precisely:
+The goal of this project is to enable organizations to deliver solutions that are reliable and easy to build, based on containers.
+Many software organizations rely on a complex set of command-line tools (CLIs) and configuration files to deliver container-based solutions.
+This project proposes to make that simpler by building tools focused on two key characteristics:
 
-* *Unified* means providing a single entry point for the organization tools, in constrast with having customers handle the installation and configuration of several CLI tools.
+* *Unified*: Help organizations build and publish tools that spans through many service teams through a centralized entrypoint. Just like `aws ec2`, `aws s3`, or any other cloud provider CLIs. This allows their customers to execute new workflows reliably by simply updating the tool, instead of installing and configuring new ones. 
 
-* *Pluggable* means letting any team in the organization contribute their features to the CLI, including new teams that may already have their own legacy code and binaries.
+* *Pluggable*: Help developers integrate solutions into any system with minimal friction. Existing CLIs and container images can be leveraged without modification, and still be integrated with UP for additional features.
 
-In that sense, as an hypotetical example, a comany called "Red Hat" that publishes binaries such as ```ansible```, ```quarkus```, ```oc```, ```ccmctl```, and so on, would be able to have those binaries executed as ```rh ansible```, ```rh quarkus```, ```rh oc```, and so on. The default executable from this project is named ```up```, organizations can use that or link/alias to any executable name, like as ```rh``` in this example.
-
-Besides CLI management, such a tool would be a convenient opportunity to deliver complex solutions, such as creating an OKD cluster with specific features and operators installed, or pruning and cloud provider account. The specific operations are performed by the existing tools, such as ```openshift-installer``` or ```aws-nuke```, this projects aim to automate the configuration and verification steps so that solutions can be shared across different environments. 
-
-A "cli facade" like that allows for the introduction of several benefits, such as:
-* simplified installation for customers
-* predictable runtime environments
-* delivery of repeable solutions
-* simplified experimentation
+In this repository you'll find the `up` CLI, demonstrating the proposed plugin system and integration with popular tools such as ```ansible```, ```quarkus```, ```oc```, and others. See the `demos` directory for examples!
 
 This project is at exeperimental stage and all contributions are most welcome.
 
-# Design Decisions
+# What is novel about UP?
+UP tools are designed on top of modern container tools to leverage the packaging and distribution standards that are widely adopted. However, this project takes innovative approaches in the development and delivery of container-based solutions.
 
-## Not reinvent the wheel
+By building a *plugin-system* that allows organizations to easily integrate their existing containers and command-line solutions into a centralized tool. UP plugins can be simple library packages or even a single configuration file.
 
-Do not re-create a package manager, plugin system or packaging model. Let's use containers and existing libraries as much as possible.
+By using *doclets* to integrate scripts with containers, so that they can be executed "as is" or through up tools, adding the settings and hooks defined as comments in the script itself.
 
 
-## Leverage Python and Ansible
+# How do I use up?
 
-Provide a framework so that solutions can be automated with Ansible, and leveraging it's many features in that area. However, offer a stable and predictable environment, execute configuration and validation steps, allowing for testable and repeatable solutions.
+## Command Mode
+Any command prompt can be executed with the `up` CLI. Once `up` is invoked, with your prompt as argument, it will look up any plugin that provides container configurations for your execution. For example, one could run `up ansible --version` even without ansible installed. The ansible plugin will load the correct container and execute your command, printing the ansible version.
 
-For a better integration with the Ansible ecosystem, this project is mostly written in python, using pluggy as a plugin system.
-
-# Documentation
-
-## The CLI
-
-### How do I use up?
-Below, an example usage of up:
 ```bash
-$ up ansible --version # will output the Ansible version
+$ up ansible --version 
 ```
-"But what if I want to pass a port or volume?" So you have 2 options: first: set the volume/port inside the `up.yaml` of your plugin, or in the example case the Ansible plugin; or second: pass the volume/port on the command, e.g:
+
+## Script Mode
+
+In script mode, just like command mode, your script will be executed in a container. However, besides the plugins, it will look for comments in your script that are containerfile instructions such as "FROM", "PORT", "ENV". Those will be parsed and executed as well. For example, the following script could be created to run your ansible commands through a container.
+
+```bash
+#!/bin/bash
+
+# FROM cytopia/ansible:latest
+
+ansible --version
+```
+
+# How's that supposed to help?
+
+As a developer, you can use script mode to automate a solution and be assured that it be executed as supposed, with correct dependencies, binaries and settings from the container.
+
+As a organization manager or lead, you can build and distribute your own version of `up`, consolidating the deliveries of service teams and allowing customers to experiment new solutions.
+
+# Frequently Asked Questions?
+
+## What if I want to pass a port or volume? 
+So you have 2 options: first: set the volume/port inside the `up.yaml` of your plugin, or in the example case the Ansible plugin; or second: pass the volume/port on the command, e.g:
 ```bash
 $ up -Xp=8080/tcp:5000 ansible --version # will set the port in the container
 $ up -Xv=/home:/mnt/vol3,rw ansible --version # will set the volume in the container
 ```
-### Does up have some internal command?
+
+# Does up have some internal/probing commands?
 Yes, the current available commands are in `plugin` reserved keyword:
 ```bash
 $ up plugin list # List all installed plugins
