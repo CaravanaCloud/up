@@ -1,12 +1,32 @@
 [tool.poetry]
 name = "up"
 version = "0.2.19"
-description = ""
+description = "Unified and Pluggable CLI"
 authors = ["Julio Faerman <jufaerma@redhat.com>"]
+maintainers = ["Julio Faerman <jufaerma@redhat.com>"]
 readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/CaravanaCloud/up"
+repository = "https://github.com/CaravanaCloud/up"
+documentation = "https://github.com/CaravanaCloud/up#documentation"
+keywords = ["CLI"]
+classifiers = [
+  "Intended Audience :: System Administrators",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Utilities"
+]
 #packages = [
 #    { include = "up_cli", from="./up_cli/"}
 #]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/CaravanaCloud/up/issues"
 
 [tool.poetry.dependencies]
 python = "^3.12"
