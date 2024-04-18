@@ -1,13 +1,15 @@
 RM	= rm -rf /home/faermanj/.cache/pypoetry/virtualenvs/up-ansible-EmbwlCf6-py3.12 \
 			&& rm -rf /home/faermanj/.pyenv/versions/3.12.0/lib/python3.12/site-packages/up*
 
+.PHONY: publish_libs build_libs bump_patch uprun run-pre-commit install-pre-commit
+
 # publish_libs.sh
 define publish =
 #!/bin/sh
 set -ex
 
 pushd up_lib
-poetry publish --build 
+poetry publish --build
 popd
 
 pushd up_ansible
@@ -27,7 +29,7 @@ set -ex
 poetry config virtualenvs.create false
 
 pushd up_lib
-poetry build 
+poetry build
 popd
 
 pushd up_ansible
@@ -61,11 +63,11 @@ for file in */pyproject.toml; do
     new_version=$(cat "$file" | grep "^version" | cut -d= -f2 | tr -d ' "')
     new_version=$(increment_version $new_version)
     echo "Bumping $file to $new_version "
-    sed -i "s/^version = .*/version = \"$new_version\"/" "$file" 
+    sed -i "s/^version = .*/version = \"$new_version\"/" "$file"
     sed -i "s/^up-ansible = .*/up-ansible = \"$new_version\"/" "$file"
     sed -i "s/^up-splat = .*/up-splat = \"$new_version\"/" "$file"
     sed -i "s/^up-lib = .*/up-lib = \"$new_version\"/" "$file"
-    
+
 done
 endef
 
@@ -100,7 +102,7 @@ WORKDIR /opt/up/up_cli
 RUN ls
 RUN poetry config virtualenvs.create false
 # --without dev
-RUN poetry install 
+RUN poetry install
 
 ENTRYPOINT ["poetry", "--quiet", "run", "python3", "-m", "up_cli.main"]
 
@@ -128,7 +130,14 @@ containerfile:
 uprun:
 	@$(value up)
 
+run-pre-commit:
+	pre-commit run --all-files
+
+install-pre-commit:
+	pre-commit install
+	@echo "Now pre-commit will run on every commit :)"
+
 clean:
 	$(RM)
-  
+
 .ONESHELL:
